@@ -195,22 +195,22 @@ export default async function Home() {
         {/* ── LOCALIZAÇÃO ── */}
         <section style={{ background:"var(--azul-escuro)", padding:"60px 32px", textAlign:"center", color:"#fff" }}>
           <p className="eyebrow">Onde nos encontrar</p>
-          <h2 style={{ color:"#fff", fontSize:32, fontFamily: "Montserrat, sans-serif", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px" }}>Localização e <em style={{ color:"var(--dourado)", fontStyle: "normal" }}>Horários</em></h2>
+          <h2 style={{ color:"#fff", fontSize:34, fontFamily: "Montserrat, sans-serif", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px" }}>Localização e <em style={{ color:"var(--dourado)", fontStyle: "normal" }}>Horários</em></h2>
           <div className="divider" />
           
           <div className="about-image-container" style={{ maxWidth: 380, margin: "0 auto 32px" }}>
             <img src="/catalogo/Cópia%20de%20IMG_9776.jpg" alt="Nevou no Chile Localização" className="about-image" />
           </div>
 
-          <div style={{ maxWidth:380, margin:"0 auto", display:"flex", flexDirection:"column", gap:20 }}>
+          <div className="loc-box">
             {[
               { label:"📍 Localização", val:"Santiago, Chile" },
               { label:"🕐 Horário de Funcionamento", val:"Todos os dias das 10h30 às 21h00" },
               { label:"📱 WhatsApp", val:"+55 21 97322-1855" },
             ].map(({ label, val }) => (
-              <div key={label} style={{ background:"rgba(255,255,255,0.07)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:14, padding:"18px 22px", textAlign:"left" }}>
-                <p style={{ margin:0, fontFamily:"Montserrat,sans-serif", fontSize:11, color:"rgba(255,255,255,0.55)", letterSpacing:1 }}>{label}</p>
-                <p style={{ margin:"6px 0 0", fontFamily:"Montserrat,sans-serif", fontSize:16, color:"#fff", fontWeight:600 }}>{val}</p>
+              <div key={label} className="loc-row">
+                <p className="loc-label">{label}</p>
+                <p className="loc-val">{val}</p>
               </div>
             ))}
           </div>
