@@ -169,7 +169,7 @@ export default async function Home() {
           <div style={{ position:"relative", zIndex:1, width:300, maxWidth:"82%", height:200, margin:"0 auto 8px", display:"flex", alignItems:"center", justifyContent:"center" }}>
             <img src="/catalogo/logos/logo-branca.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain", filter:"drop-shadow(0 4px 12px rgba(0,0,0,0.3))" }} />
           </div>
-          <p style={{ position:"relative", zIndex:1 }}>Temporada de Neve · Chile</p>
+          <p className="eyebrow" style={{ position:"relative", zIndex:1, color: "var(--dourado)" }}>Temporada de Neve · Chile</p>
           <div className="cover-line" style={{ position:"relative", zIndex:1 }}>
             <i /><span>Roupas de Neve · Aluguel Premium</span><i />
           </div>
@@ -183,7 +183,7 @@ export default async function Home() {
           <p className="eyebrow">Nossa História</p>
           <h2>Quem <em>Somos</em></h2>
           <div className="divider" />
-          <p>
+          <p className="about-text">
             A <strong>Nevou no Chile</strong> nasceu para elevar a experiência de quem sonha viver a neve com estilo e praticidade. Somos uma empresa brasileira especializada em aluguel de roupas femininas e masculinas específicas para atividades na neve e roupas casuais para te manter protegido e elegante no frio. Não basta estar aquecido, é preciso estar bem vestido, com sofisticação e presença!
             <br /><br />
             Nosso propósito vai além do aluguel: queremos que cada cliente se sinta confiante, confortável e estiloso, sem preocupações e sem excessos na bagagem! Selecionamos peças modernas, elegantes e funcionais para transformar sua viagem em uma experiência memorável.
@@ -218,7 +218,7 @@ export default async function Home() {
 
         {/* ── DIFERENCIAIS ── */}
         <section style={{ background:"var(--creme)", padding:"60px 32px", textAlign:"center" }}>
-          <p className="eyebrow" style={{ color:"var(--vermelho)" }}>Por que escolher</p>
+          <p className="eyebrow">Por que escolher</p>
           <h2 style={{ color:"var(--azul-escuro)" }}>Nossos <em>Diferenciais</em></h2>
           <div className="divider" />
           <div style={{ display:"flex", flexDirection:"column", gap:14, marginTop:8 }}>

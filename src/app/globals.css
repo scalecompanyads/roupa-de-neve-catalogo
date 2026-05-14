@@ -58,20 +58,7 @@ select {
   filter: drop-shadow(0 0 30px rgb(201 168 76 / 50%));
 }
 
-.cover-section p,
-.cover-line {
-  position: relative;
-  z-index: 1;
-}
 
-.cover-section p {
-  margin: 28px 0 14px;
-  color: var(--dourado);
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-}
 
 .cover-line {
   display: flex;
@@ -159,7 +146,7 @@ select {
   object-fit: cover;
 }
 
-.about-section p {
+.about-text {
   color: rgb(255 255 255 / 87%);
   font-family: "Cormorant Garamond", serif;
   font-size: 20px;
@@ -178,6 +165,8 @@ select {
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
+  text-align: center;
+  display: block;
 }
 
 h1,
