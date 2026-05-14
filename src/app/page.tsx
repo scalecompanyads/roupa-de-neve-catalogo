@@ -91,33 +91,37 @@ function ProductCard({ product }: { product: Product }) {
               ))}
             </div>
             {images.length > 1 && (
-              <div
-                className="produto-dots"
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: 10,
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: 6,
-                  pointerEvents: "none",
-                }}
-              >
-                {images.map((img) => (
-                  <span
-                    key={img.id}
-                    data-color={img.color || ""}
-                    style={{
-                      width: 18,
-                      height: 3,
-                      borderRadius: 999,
-                      background: "rgba(255,255,255,0.75)",
-                      display: "block",
-                    }}
-                  />
-                ))}
-              </div>
+              <>
+                <button type="button" className="carousel-arrow carousel-prev" aria-label="Anterior">❮</button>
+                <button type="button" className="carousel-arrow carousel-next" aria-label="Próximo">❯</button>
+                <div
+                  className="produto-dots"
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    bottom: 10,
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: 6,
+                    pointerEvents: "none",
+                  }}
+                >
+                  {images.map((img) => (
+                    <span
+                      key={img.id}
+                      data-color={img.color || ""}
+                      style={{
+                        width: 18,
+                        height: 3,
+                        borderRadius: 999,
+                        background: "rgba(255,255,255,0.75)",
+                        display: "block",
+                      }}
+                    />
+                  ))}
+                </div>
+              </>
             )}
           </>
         ) : (
@@ -203,14 +207,6 @@ export default async function Home() {
             A <strong>Nevou no Chile</strong> nasceu da paixão por proporcionar experiências inesquecíveis na neve.
             Somos especializados em aluguel de roupas e acessórios de neve de alta qualidade para quem quer curtir
             o inverno chileno com <strong>estilo, conforto e praticidade</strong>.
-          </p>
-        </section>
-
-        {/* ── BANDEIRA ── */}
-        <section style={{ background:"var(--azul)", padding:"28px 32px", textAlign:"center" }}>
-          <div style={{ fontSize:52, lineHeight:1 }}>🇨🇱</div>
-          <p style={{ margin:"10px 0 0", color:"rgba(255,255,255,0.82)", fontFamily:"Cormorant Garamond,serif", fontSize:18, fontStyle:"italic" }}>
-            Viva o Chile. Vista o Melhor.
           </p>
         </section>
 
@@ -421,9 +417,6 @@ export default async function Home() {
             Nevou no Chile, mas você não precisa passar frio na neve.<br />
             <strong style={{ color:"var(--dourado)" }}>Alugue tudo pronto e viaje tranquilo!</strong>
           </p>
-          <div style={{ display:"flex", gap:10, alignItems:"center", justifyContent:"center", fontSize:14, color:"rgba(255,255,255,0.7)" }}>
-            <span>🇨🇱</span><span>Viva o Chile. Vista o Melhor.</span><span>🇨🇱</span>
-          </div>
         </section>
 
       </div>

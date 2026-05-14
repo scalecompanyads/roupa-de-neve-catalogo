@@ -4,6 +4,18 @@ import { useEffect } from "react";
 export default function CatalogScript() {
   useEffect(() => {
     function handleClick(event: MouseEvent) {
+      const arrow = (event.target as Element).closest(".carousel-arrow") as HTMLElement | null;
+      if (arrow) {
+        const card = arrow.closest(".catalog-product");
+        const carousel = card?.querySelector(".produto-carousel");
+        if (carousel) {
+          const isNext = arrow.classList.contains("carousel-next");
+          const width = carousel.clientWidth;
+          carousel.scrollBy({ left: isNext ? width : -width, behavior: "smooth" });
+        }
+        return;
+      }
+
       const button = (event.target as Element).closest(".produto-cor-btn") as HTMLElement | null;
       if (!button) return;
       const card = button.closest(".catalog-product") as HTMLElement | null;

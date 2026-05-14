@@ -1,3 +1,3 @@
 git add -A
-git commit -m "visual polish cards responsive"
+git commit -m "update styles and structure per feedback"
 git push

@@ -44,18 +44,9 @@ select {
   justify-content: center;
   overflow: hidden;
   padding: 60px 30px;
-  background: linear-gradient(160deg, var(--azul-escuro) 0%, var(--azul) 45%, var(--vermelho-escuro) 100%);
+  background: #0a1628;
   color: #fff;
   text-align: center;
-}
-
-.cover-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 80%, rgb(200 16 46 / 30%) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgb(13 45 107 / 50%) 0%, transparent 50%);
 }
 
 .cover-logo {
@@ -426,7 +417,7 @@ h2 em {
 
 .footer-section {
   padding: 64px 32px;
-  background: linear-gradient(160deg, var(--azul-escuro), var(--azul) 50%, var(--vermelho-escuro));
+  background: linear-gradient(180deg, var(--azul), var(--azul-escuro) 50%, var(--vermelho-escuro));
   color: #fff;
   text-align: center;
 }
@@ -481,6 +472,40 @@ h2 em {
   border-color: var(--dourado);
   box-shadow: 0 0 0 3px rgba(201,168,76,0.3), inset 0 0 0 2px rgba(255,255,255,0.25);
   transform: scale(1.08);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.catalog-product:hover .carousel-arrow {
+  opacity: 1;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.carousel-prev { left: 8px; }
+.carousel-next { right: 8px; }
+
+@media (max-width: 860px) {
+  .carousel-arrow { opacity: 1; }
 }
 
 .admin-shell {
