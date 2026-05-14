@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { initialCatalogData } from "@/lib/catalog-data";
 import { hasSupabaseConfig, storageBucket, supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { CatalogData, Category, Product } from "@/lib/types";
 
 const localKey = "nevou-catalog-admin";
@@ -121,12 +123,20 @@ async function saveSupabaseData(data: CatalogData) {
 }
 
 export function AdminPanel() {
+  const router = useRouter();
   const [data, setData] = useState<CatalogData>(initialCatalogData);
   const [selectedId, setSelectedId] = useState(initialCatalogData.products[0]?.id || "");
   const [draftColorNames, setDraftColorNames] = useState<Record<string, string>>({});
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [status, setStatus] = useState(hasSupabaseConfig ? "Conectando ao Supabase..." : "Modo local: pronto para conectar ao Supabase.");
+
+  const handleLogout = async () => {
+    const client = createSupabaseBrowserClient();
+    await client.auth.signOut();
+    router.push("/admin/login");
+    router.refresh();
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -324,6 +334,7 @@ export function AdminPanel() {
         <div className="admin-actions">
           <button type="button" disabled={!isDirty || isSaving} onClick={saveChanges}>{isSaving ? "Salvando..." : "Salvar alterações"}</button>
           <a href="/" target="_blank">Ver catálogo</a>
+          <button type="button" className="logout-btn" onClick={handleLogout}>Sair</button>
         </div>
       </header>
 
