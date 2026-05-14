@@ -1,6 +1,6 @@
 import { getCatalogData } from "@/lib/catalog-service";
 import type { CatalogData, Product } from "@/lib/types";
-import Image from "next/image";
+import CatalogScript from "@/components/CatalogScript";
 
 export const dynamic = "force-dynamic";
 
@@ -48,20 +48,78 @@ function SnowFlakes() {
 }
 
 function ProductCard({ product }: { product: Product }) {
-  const images = product.images.slice(0, 2);
+  const images = product.images;
   const imageColors = [...new Set(images.map(img => img.color).filter(Boolean) as string[])];
   const colors = product.colors.length ? product.colors : imageColors;
 
   return (
-    <div className="catalog-product">
-      {/* image stage */}
-      <div className="product-stage" style={{ position: "relative" }}>
+    <div className="catalog-product" data-product-id={product.id}>
+      {/* image stage with full carousel */}
+      <div className="product-stage" style={{ position: "relative", overflow: "hidden" }}>
         {images.length ? (
-          <img
-            src={images[0].url}
-            alt={images[0].alt}
-            className="product-image"
-          />
+          <>
+            <div
+              className="produto-carousel"
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                overflowX: "auto",
+                scrollSnapType: "x mandatory",
+                scrollbarWidth: "none",
+              }}
+            >
+              {images.map((img) => (
+                <div
+                  key={img.id}
+                  className="produto-slide"
+                  data-color={img.color || ""}
+                  style={{
+                    flex: "0 0 100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    scrollSnapAlign: "center",
+                  }}
+                >
+                  <img
+                    src={img.url}
+                    alt={img.alt}
+                    className="product-image"
+                  />
+                </div>
+              ))}
+            </div>
+            {images.length > 1 && (
+              <div
+                className="produto-dots"
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  bottom: 10,
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 6,
+                  pointerEvents: "none",
+                }}
+              >
+                {images.map((img) => (
+                  <span
+                    key={img.id}
+                    data-color={img.color || ""}
+                    style={{
+                      width: 18,
+                      height: 3,
+                      borderRadius: 999,
+                      background: "rgba(255,255,255,0.75)",
+                      display: "block",
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </>
         ) : (
           <span className="product-empty">Foto do produto</span>
         )}
@@ -77,8 +135,9 @@ function ProductCard({ product }: { product: Product }) {
               <button
                 type="button"
                 className={`produto-cor-btn${i === 0 ? " is-active" : ""}`}
+                data-color={color}
                 title={name}
-                style={{ background: colorCss(color), width: 38, height: 38, border: "2px solid rgba(201,168,76,0.5)", borderRadius: "50%", cursor: "pointer" }}
+                style={{ background: colorCss(color), width: 38, height: 38, border: "2px solid rgba(201,168,76,0.5)", borderRadius: "50%", cursor: "pointer", boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.18)" }}
               />
               <small style={{ fontFamily: "Montserrat,sans-serif", fontSize: 8, color: "rgba(255,255,255,0.62)", textAlign: "center", maxWidth: 70, lineHeight: 1.1 }}>{name}</small>
             </div>
@@ -120,6 +179,7 @@ export default async function Home() {
 
   return (
     <>
+      <CatalogScript />
       <div className="catalog-shell">
 
         {/* ── CAPA ── */}

@@ -418,6 +418,40 @@ h2 em {
   color: rgb(255 255 255 / 86%);
 }
 
+/* ── Carousel & color filter ── */
+.produto-carousel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.produto-carousel::-webkit-scrollbar { display: none; }
+
+.produto-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+}
+
+.produto-cor-btn {
+  width: 38px;
+  height: 38px;
+  border: 2px solid rgba(201,168,76,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.produto-cor-btn.is-active {
+  border-color: var(--dourado);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.22), inset 0 0 0 2px rgba(255,255,255,0.22);
+}
+
 .admin-shell {
   min-height: 100vh;
   padding: 24px;
