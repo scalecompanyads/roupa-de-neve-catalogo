@@ -225,6 +225,79 @@ export default async function Home() {
   #placeholder-logo-capa img,
   #placeholder-logo-rodape img {
     filter: none !important;
+  }
+  @media (min-width: 768px) {
+    body {
+      max-width: none !important;
+      margin: 0 !important;
+      background: #f5f0e8 !important;
+    }
+    body > div {
+      width: 100%;
+      overflow: hidden;
+      background: #fff;
+    }
+    body > div > section:first-child {
+      max-width: none !important;
+      min-height: 92vh !important;
+    }
+    .quem-somos,
+    .localizacao,
+    .como-alugar,
+    .precos,
+    .rodape,
+    .produtos-intro {
+      padding-left: max(64px, calc((100vw - 1120px) / 2)) !important;
+      padding-right: max(64px, calc((100vw - 1120px) / 2)) !important;
+    }
+    .qs-texto,
+    .localizacao > p:not(.subtitulo),
+    .rodape-slogan {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .titulo {
+      font-size: 52px !important;
+    }
+    .prod-cat-header {
+      padding: 28px max(64px, calc((100vw - 1120px) / 2)) !important;
+    }
+    .prod-cat-header h2 {
+      font-size: 36px !important;
+    }
+    .prod-grid {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)) !important;
+      gap: 32px !important;
+      padding: 40px max(64px, calc((100vw - 1120px) / 2)) !important;
+      align-items: stretch;
+    }
+    .produto-card {
+      height: 100%;
+    }
+    .produto-card > div {
+      min-height: 420px !important;
+    }
+    .produto-carousel,
+    .produto-slide {
+      height: 420px !important;
+    }
+    .produto-slide img {
+      max-width: 82%;
+      max-height: 92%;
+    }
+    .kit-card {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .steps,
+    .contatos {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }`;
   const colorFilterScript = `
   document.addEventListener('click', function (event) {
