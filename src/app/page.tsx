@@ -219,16 +219,18 @@ export default async function Home() {
         {/* ── DIFERENCIAIS ── */}
         <section style={{ background:"var(--creme)", padding:"60px 32px", textAlign:"center" }}>
           <p className="eyebrow">Por que escolher</p>
-          <h2 style={{ color:"var(--azul-escuro)" }}>Nossos <em>Diferenciais</em></h2>
+          <h2 style={{ color:"var(--azul-escuro)" }}>Diferenciais da <em>Nevou no Chile</em></h2>
           <div className="divider" />
           <div style={{ display:"flex", flexDirection:"column", gap:14, marginTop:8 }}>
             {[
-              ["🧊","Roupas Higienizadas","Todas as peças passam por processo rigoroso de higienização antes de cada uso."],
-              ["⭐","Qualidade Premium","Trabalhamos apenas com marcas e materiais de alta performance para o frio intenso."],
-              ["💰","Melhor Custo-Benefício","Alugar é muito mais econômico do que comprar roupas que você usará poucas vezes."],
-              ["📱","Reserva Fácil","Agende pelo WhatsApp ou Instagram de forma rápida e prática."],
-              ["🎨","Variedade de Estilos","Cores, tamanhos e estilos para toda a família, do básico ao exclusivo."],
-              ["🚀","Atendimento Personalizado","Nossa equipe te ajuda a escolher o kit ideal para sua aventura na neve."],
+              ["✨","Curadoria de estilo que valoriza você","Não é só roupa de neve, são peças escolhidas estrategicamente para unir estética, conforto e performance, garantindo que você se sinta confiante e bem vestido em qualquer cenário."],
+              ["🧼","Higiene impecável e padrão elevado","Cada peça passa por um processo rigoroso de limpeza, higienização e revisão, para você usar com total segurança e tranquilidade."],
+              ["🏔️","Looks pensados para cada tipo de viagem","Do básico funcional ao visual mais sofisticado para fotos e experiências. Opções que se adaptam ao seu estilo, roteiro e orçamento."],
+              ["🤝","Atendimento consultivo","Você não escolhe sozinho. Nós te orientamos na montagem do look ideal, considerando clima, destino e até os registros que você quer fazer."],
+              ["🎒","Praticidade real na sua viagem","Evite excesso de bagagem, compras desnecessárias e erros comuns. Você chega pronto, com tudo certo, sem dor de cabeça."],
+              ["🔄","Flexibilidade que acompanha você","Ajustes, trocas e suporte pensados para imprevistos, porque viagem de verdade nem sempre sai 100% como planejado."],
+              ["⭐","Peças revisadas para performance na neve","Nada de passar frio ou desconforto: nossos itens são preparados para proteger de verdade, não só \"compor look\"."],
+              ["🌟","Experiência completa","Do primeiro contato até a devolução, tudo é pensado para ser simples, rápido e sem fricção."],
             ].map(([ico, title, desc]) => (
               <div key={title as string} style={{ display:"flex", gap:16, padding:"18px 20px", background:"#fff", borderRadius:14, textAlign:"left", boxShadow:"0 2px 12px rgba(0,0,0,0.06)" }}>
                 <div style={{ fontSize:28, flexShrink:0 }}>{ico}</div>
