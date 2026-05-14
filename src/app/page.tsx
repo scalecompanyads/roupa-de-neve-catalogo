@@ -1,360 +1,372 @@
-import { readFile, readdir } from "node:fs/promises";
-import path from "node:path";
 import { getCatalogData } from "@/lib/catalog-service";
 import type { CatalogData, Product } from "@/lib/types";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
-const photoPlaceholders = [
-  "URL_FOTO_MACACAO_01",
-  "URL_FOTO_MACACAO_02",
-  "URL_FOTO_MACACAO_03",
-  "URL_FOTO_MACACAO_04",
-  "URL_FOTO_CASACO_01",
-  "URL_FOTO_CASACO_02",
-  "URL_FOTO_CASACO_03",
-  "URL_FOTO_CASACO_04",
-  "URL_FOTO_CASACO_05",
-  "URL_FOTO_CONJUNTO_01",
-  "URL_FOTO_CONJUNTO_02",
-  "URL_FOTO_BOTA_01",
-  "URL_FOTO_BOTA_02",
-  "URL_FOTO_BOTA_03",
-  "URL_FOTO_BOTA_04"
-];
-
-function extractHtmlParts(html: string) {
-  const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/i);
-  const bodyMatch = html.match(/<body>([\s\S]*?)<\/body>/i);
-
-  return {
-    styles: styleMatch?.[1] || "",
-    body: bodyMatch?.[1] || html
-  };
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-function categoryClass(tone: string) {
-  if (tone === "red") return "cat-macacao";
-  if (tone === "blue") return "cat-casaco";
-  if (tone === "dark") return "cat-bota";
-  return "cat-acess";
+/* ─── helpers ─── */
+function categoryBg(tone: string) {
+  if (tone === "red") return "var(--vermelho)";
+  if (tone === "blue") return "var(--azul)";
+  if (tone === "dark") return "var(--azul-escuro)";
+  return "linear-gradient(135deg,var(--vermelho-escuro),var(--vermelho))";
 }
 
 function splitColorTag(color: string) {
   const [rawHex, ...nameParts] = color.split("|");
   const name = nameParts.join("|").trim();
-  return {
-    swatch: name ? rawHex.trim() : color.trim(),
-    name: name || color.trim()
-  };
+  return { swatch: name ? rawHex.trim() : color.trim(), name: name || color.trim() };
 }
 
 function colorCss(color: string) {
   const { swatch } = splitColorTag(color);
   if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(swatch)) return swatch;
-  const value = swatch.toLowerCase();
-  if (value.includes("preto")) return "#111111";
-  if (value.includes("branco") || value.includes("off-white")) return "#f4f0e8";
-  if (value.includes("marrom")) return "#5a3727";
-  if (value.includes("cinza") || value.includes("prata")) return "#9aa0a6";
-  if (value.includes("rosa")) return "#f4a8bc";
-  if (value.includes("vermelho")) return "#c8102e";
-  if (value.includes("bege")) return "#c7aa83";
-  if (value.includes("verde")) return "#0d6b43";
-  if (value.includes("vinho")) return "#5b1230";
-  if (value.includes("azul")) return "#15285f";
-  if (value.includes("dourado")) return "#c9a84c";
-  if (value.includes("animal")) return "linear-gradient(135deg,#d7c0a3 0 35%,#1f1a16 35% 52%,#d7c0a3 52% 70%,#1f1a16 70%)";
-  if (value.includes("xadrez")) return "linear-gradient(45deg,#111 0 25%,#fff 25% 50%,#111 50% 75%,#fff 75%)";
+  const v = swatch.toLowerCase();
+  if (v.includes("preto")) return "#111";
+  if (v.includes("branco") || v.includes("off-white")) return "#f4f0e8";
+  if (v.includes("marrom")) return "#5a3727";
+  if (v.includes("cinza") || v.includes("prata")) return "#9aa0a6";
+  if (v.includes("rosa")) return "#f4a8bc";
+  if (v.includes("vermelho")) return "#c8102e";
+  if (v.includes("bege")) return "#c7aa83";
+  if (v.includes("verde")) return "#0d6b43";
+  if (v.includes("vinho")) return "#5b1230";
+  if (v.includes("azul")) return "#15285f";
+  if (v.includes("dourado")) return "#c9a84c";
   return "transparent";
 }
 
-function renderProductCard(product: Product) {
-  const images = product.images.slice(0, 2);
-  const imageColors = [...new Set(images.map((image) => image.color).filter(Boolean) as string[])];
-  const colors = product.colors.length ? product.colors : imageColors;
-  const activeColor = colors[0] || images[0]?.color || "";
-  const colorDots = (colors.length ? colors : [""])
-    .slice(0, 5)
-    .map((color, index) => `
-        <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-          <button type="button" class="produto-cor-btn${index === 0 ? " is-active" : ""}" data-color="${escapeHtml(color)}" title="${escapeHtml(splitColorTag(color).name)}" style="background:${colorCss(color)};"></button>
-          <small style="font-family:'Montserrat',sans-serif;font-size:8px;line-height:1.1;color:rgba(255,255,255,0.62);text-align:center;max-width:70px;">${escapeHtml(splitColorTag(color).name)}</small>
-        </div>`)
-    .join("");
+/* ─── Sub-components ─── */
+function SnowFlakes() {
+  return (
+    <div className="snow" aria-hidden="true">
+      {["❄","❅","❆","❄","❅","❆","❄","❅"].map((s, i) => (
+        <span key={i}>{s}</span>
+      ))}
+    </div>
+  );
+}
 
-  return `
-  <div class="produto-card" data-product-id="${escapeHtml(product.id)}" style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-    <div style="display:flex;align-items:stretch;min-height:300px;">
-      <div style="flex:1;background:linear-gradient(135deg,#1a1a2e,#0a1628);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
-        ${
-          images.length
-            ? `<div class="produto-carousel" aria-label="${escapeHtml(product.name)}">
-                ${images.map((image) => {
-                  const imageColor = image.color || activeColor;
-                  return `<div class="produto-slide" data-color="${escapeHtml(imageColor)}"><img src="${escapeHtml(image.url)}" alt="${escapeHtml(image.alt)}"></div>`;
-                }).join("")}
-              </div>
-              ${images.length > 1 ? `<div class="produto-dots">${images.map((image, index) => {
-                const imageColor = image.color || activeColor;
-                return `<span data-color="${escapeHtml(imageColor)}">${index + 1}</span>`;
-              }).join("")}</div>` : ""}`
-            : `<span style="font-family:'Montserrat',sans-serif;color:rgba(255,255,255,0.45);font-size:11px;letter-spacing:2px;text-transform:uppercase;">Foto do produto</span>`
-        }
+function ProductCard({ product }: { product: Product }) {
+  const images = product.images.slice(0, 2);
+  const imageColors = [...new Set(images.map(img => img.color).filter(Boolean) as string[])];
+  const colors = product.colors.length ? product.colors : imageColors;
+
+  return (
+    <div className="catalog-product">
+      {/* image stage */}
+      <div className="product-stage" style={{ position: "relative" }}>
+        {images.length ? (
+          <img
+            src={images[0].url}
+            alt={images[0].alt}
+            className="product-image"
+          />
+        ) : (
+          <span className="product-empty">Foto do produto</span>
+        )}
       </div>
-      <div style="
-        width:115px;background:#0A1628;
-        display:flex;flex-direction:column;align-items:center;justify-content:center;
-        gap:20px;padding:24px 12px;flex-shrink:0;
-        border-left:1px solid rgba(201,168,76,0.15);
-      ">
-        <p style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--dourado);text-align:center;line-height:1.7;">Cores<br>Disponíveis</p>
-        ${colorDots}
+
+      {/* colors panel */}
+      <div className="product-colors">
+        <span>Cores<br />Disponíveis</span>
+        {(colors.length ? colors : [""]).slice(0, 5).map((color, i) => {
+          const { name } = splitColorTag(color);
+          return (
+            <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
+              <button
+                type="button"
+                className={`produto-cor-btn${i === 0 ? " is-active" : ""}`}
+                title={name}
+                style={{ background: colorCss(color), width: 38, height: 38, border: "2px solid rgba(201,168,76,0.5)", borderRadius: "50%", cursor: "pointer" }}
+              />
+              <small style={{ fontFamily: "Montserrat,sans-serif", fontSize: 8, color: "rgba(255,255,255,0.62)", textAlign: "center", maxWidth: 70, lineHeight: 1.1 }}>{name}</small>
+            </div>
+          );
+        })}
       </div>
     </div>
-  </div>`;
+  );
 }
 
-function renderProductsSection(data: CatalogData) {
-  return [...data.categories]
-    .sort((a, b) => a.order - b.order)
-    .map((category) => {
-      const products = data.products
-        .filter((product) => product.active && product.categoryId === category.id)
-        .sort((a, b) => a.order - b.order);
-
-      if (!products.length) return "";
-
-      return `
-<div class="prod-cat-header ${categoryClass(category.tone)}"><h2>${escapeHtml(category.name)}</h2><p>${escapeHtml(category.tagline)}</p></div>
-<div class="prod-grid">
-${products.map(renderProductCard).join("\n")}
-</div>`;
-    })
-    .join("\n");
+function ProductsSection({ data }: { data: CatalogData }) {
+  const sorted = [...data.categories].sort((a, b) => a.order - b.order);
+  return (
+    <>
+      {sorted.map(cat => {
+        const products = data.products
+          .filter(p => p.active && p.categoryId === cat.id)
+          .sort((a, b) => a.order - b.order);
+        if (!products.length) return null;
+        return (
+          <div key={cat.id}>
+            <div className="category-header" style={{ background: categoryBg(cat.tone) }}>
+              <h2>{cat.name}</h2>
+              <p>{cat.tagline}</p>
+            </div>
+            <div className="product-grid">
+              {products.map(p => <ProductCard key={p.id} product={p} />)}
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
 }
 
-async function getOriginalCatalogHtml(): Promise<string | null> {
-  try {
-    const files = await readdir(process.cwd());
-    const htmlFile = files.find((file) => file.toLowerCase().endsWith(".html"));
-    if (!htmlFile) return null;
-    return readFile(path.join(process.cwd(), htmlFile), "utf8");
-  } catch {
-    return null;
-  }
-}
-
+/* ─── Main page ─── */
 export default async function Home() {
   const data = await getCatalogData();
-  const originalHtml = await getOriginalCatalogHtml();
-
-  // Fallback: se o HTML base não existir (ex: Vercel), renderiza só os produtos dinâmicos
-  if (!originalHtml) {
-    return (
-      <main style={{ fontFamily: "Montserrat, sans-serif", padding: "2rem", maxWidth: 960, margin: "0 auto" }}>
-        <h1 style={{ color: "#0d2d6b" }}>Catálogo Nevou no Chile</h1>
-        <div dangerouslySetInnerHTML={{ __html: renderProductsSection(data) }} />
-      </main>
-    );
-  }
-
-  const { styles, body } = extractHtmlParts(originalHtml);
-  const carouselStyles = `
-  .produto-carousel {
-    width: 100%;
-    height: 300px;
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-  .produto-carousel::-webkit-scrollbar { display: none; }
-  .produto-slide {
-    flex: 0 0 100%;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    scroll-snap-align: center;
-  }
-  .produto-slide img {
-    max-width: 75%;
-    max-height: 90%;
-    object-fit: contain;
-    object-position: center bottom;
-    display: block;
-    margin: auto;
-  }
-  .produto-dots {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    pointer-events: none;
-  }
-  .produto-dots span {
-    width: 18px;
-    height: 3px;
-    overflow: hidden;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.75);
-    color: transparent;
-  }
-  .produto-cor-btn {
-    width: 38px;
-    height: 38px;
-    border: 2px solid rgba(201,168,76,0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.18);
-  }
-  .produto-cor-btn.is-active {
-    border-color: var(--dourado);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.22), inset 0 0 0 2px rgba(255,255,255,0.22);
-  }
-  #placeholder-logo-capa,
-  #placeholder-logo-rodape {
-    background: rgba(255,255,255,0.94) !important;
-    border: 1px solid rgba(201,168,76,0.32) !important;
-    border-radius: 18px !important;
-    padding: 18px !important;
-    box-shadow: 0 14px 42px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.24) inset !important;
-  }
-  #placeholder-logo-capa img,
-  #placeholder-logo-rodape img {
-    filter: none !important;
-  }
-  @media (min-width: 768px) {
-    body {
-      max-width: none !important;
-      margin: 0 !important;
-      background: #f5f0e8 !important;
-    }
-    body > div {
-      width: 100%;
-      overflow: hidden;
-      background: #fff;
-    }
-    body > div > section:first-child {
-      max-width: none !important;
-      min-height: 92vh !important;
-    }
-    .quem-somos,
-    .localizacao,
-    .como-alugar,
-    .precos,
-    .rodape,
-    .produtos-intro {
-      padding-left: max(64px, calc((100vw - 1120px) / 2)) !important;
-      padding-right: max(64px, calc((100vw - 1120px) / 2)) !important;
-    }
-    .qs-texto,
-    .localizacao > p:not(.subtitulo),
-    .rodape-slogan {
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .titulo {
-      font-size: 52px !important;
-    }
-    .prod-cat-header {
-      padding: 28px max(64px, calc((100vw - 1120px) / 2)) !important;
-    }
-    .prod-cat-header h2 {
-      font-size: 36px !important;
-    }
-    .prod-grid {
-      display: grid !important;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)) !important;
-      gap: 32px !important;
-      padding: 40px max(64px, calc((100vw - 1120px) / 2)) !important;
-      align-items: stretch;
-    }
-    .produto-card {
-      height: 100%;
-    }
-    .produto-card > div {
-      min-height: 420px !important;
-    }
-    .produto-carousel,
-    .produto-slide {
-      height: 420px !important;
-    }
-    .produto-slide img {
-      max-width: 82%;
-      max-height: 92%;
-    }
-    .kit-card {
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .steps,
-    .contatos {
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }`;
-  const colorFilterScript = `
-  document.addEventListener('click', function (event) {
-    var button = event.target.closest('.produto-cor-btn');
-    if (!button) return;
-    var card = button.closest('.produto-card');
-    if (!card) return;
-    var color = button.getAttribute('data-color') || '';
-    var hasTaggedPhoto = false;
-    card.querySelectorAll('.produto-slide').forEach(function (slide) {
-      if ((slide.getAttribute('data-color') || '') === color) hasTaggedPhoto = true;
-    });
-    card.querySelectorAll('.produto-cor-btn').forEach(function (item) {
-      item.classList.toggle('is-active', item === button);
-    });
-    var shown = 0;
-    card.querySelectorAll('.produto-slide').forEach(function (slide) {
-      var visible = hasTaggedPhoto ? (slide.getAttribute('data-color') || '') === color : true;
-      slide.style.display = visible ? 'flex' : 'none';
-      if (visible) shown += 1;
-    });
-    card.querySelectorAll('.produto-dots span').forEach(function (dot) {
-      var visible = hasTaggedPhoto ? (dot.getAttribute('data-color') || '') === color : true;
-      dot.style.display = visible && shown > 1 ? 'block' : 'none';
-    });
-    var carousel = card.querySelector('.produto-carousel');
-    if (carousel) carousel.scrollTo({ left: 0, behavior: 'smooth' });
-  });`;
-
-  let renderedBody = body.replaceAll("URL_LOGO_AQUI", "/catalogo/logos/logo-original.png");
-  const productsStart = renderedBody.indexOf('<div class="prod-cat-header cat-macacao">');
-  const productsEnd = renderedBody.indexOf("<!-- COMO ALUGAR -->");
-
-  if (productsStart >= 0 && productsEnd > productsStart) {
-    renderedBody = `${renderedBody.slice(0, productsStart)}${renderProductsSection(data)}\n\n${renderedBody.slice(productsEnd)}`;
-  } else {
-    photoPlaceholders.forEach((placeholder) => {
-      renderedBody = renderedBody.replaceAll(placeholder, "");
-    });
-  }
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: `${styles}\n${carouselStyles}` }} />
-      <div dangerouslySetInnerHTML={{ __html: renderedBody }} />
-      <script dangerouslySetInnerHTML={{ __html: colorFilterScript }} />
+      <div className="catalog-shell">
+
+        {/* ── CAPA ── */}
+        <section className="cover-section">
+          <SnowFlakes />
+          <div style={{ position:"relative", zIndex:1, width:300, maxWidth:"82%", height:200, margin:"0 auto 8px", background:"rgba(255,255,255,0.94)", border:"1px solid rgba(201,168,76,0.32)", borderRadius:18, padding:18, boxShadow:"0 14px 42px rgba(0,0,0,0.18)", display:"flex", alignItems:"center", justifyContent:"center" }}>
+            <img src="/catalogo/logos/logo-original.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain" }} />
+          </div>
+          <p style={{ position:"relative", zIndex:1 }}>Temporada de Neve · Chile</p>
+          <div className="cover-line" style={{ position:"relative", zIndex:1 }}>
+            <i /><span>Roupas de Neve · Aluguel Premium</span><i />
+          </div>
+        </section>
+
+        {/* ── QUEM SOMOS ── */}
+        <section className="about-section">
+          <p className="eyebrow">Nossa História</p>
+          <h2>Quem <em>Somos</em></h2>
+          <div className="divider" />
+          <p>
+            A <strong>Nevou no Chile</strong> nasceu da paixão por proporcionar experiências inesquecíveis na neve.
+            Somos especializados em aluguel de roupas e acessórios de neve de alta qualidade para quem quer curtir
+            o inverno chileno com <strong>estilo, conforto e praticidade</strong>.
+          </p>
+        </section>
+
+        {/* ── BANDEIRA ── */}
+        <section style={{ background:"var(--azul)", padding:"28px 32px", textAlign:"center" }}>
+          <div style={{ fontSize:52, lineHeight:1 }}>🇨🇱</div>
+          <p style={{ margin:"10px 0 0", color:"rgba(255,255,255,0.82)", fontFamily:"Cormorant Garamond,serif", fontSize:18, fontStyle:"italic" }}>
+            Viva o Chile. Vista o Melhor.
+          </p>
+        </section>
+
+        {/* ── LOCALIZAÇÃO ── */}
+        <section style={{ background:"var(--azul-escuro)", padding:"60px 32px", textAlign:"center", color:"#fff" }}>
+          <p className="eyebrow">Onde nos encontrar</p>
+          <h2 style={{ color:"#fff", fontSize:34 }}>Localização e <em style={{ color:"var(--dourado)" }}>Horários</em></h2>
+          <div className="divider" />
+          <div style={{ maxWidth:380, margin:"0 auto", display:"flex", flexDirection:"column", gap:20 }}>
+            {[
+              { label:"📍 Localização", val:"Santiago, Chile" },
+              { label:"🕐 Horário de Funcionamento", val:"Todos os dias das 10h30 às 21h00" },
+              { label:"📱 WhatsApp", val:"+55 21 97322-1855" },
+            ].map(({ label, val }) => (
+              <div key={label} style={{ background:"rgba(255,255,255,0.07)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:14, padding:"18px 22px", textAlign:"left" }}>
+                <p style={{ margin:0, fontFamily:"Montserrat,sans-serif", fontSize:11, color:"rgba(255,255,255,0.55)", letterSpacing:1 }}>{label}</p>
+                <p style={{ margin:"6px 0 0", fontFamily:"Playfair Display,serif", fontSize:17, color:"#fff", fontWeight:700 }}>{val}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── DIFERENCIAIS ── */}
+        <section style={{ background:"var(--creme)", padding:"60px 32px", textAlign:"center" }}>
+          <p className="eyebrow" style={{ color:"var(--vermelho)" }}>Por que escolher</p>
+          <h2 style={{ color:"var(--azul-escuro)" }}>Nossos <em>Diferenciais</em></h2>
+          <div className="divider" />
+          <div style={{ display:"flex", flexDirection:"column", gap:14, marginTop:8 }}>
+            {[
+              ["🧊","Roupas Higienizadas","Todas as peças passam por processo rigoroso de higienização antes de cada uso."],
+              ["⭐","Qualidade Premium","Trabalhamos apenas com marcas e materiais de alta performance para o frio intenso."],
+              ["💰","Melhor Custo-Benefício","Alugar é muito mais econômico do que comprar roupas que você usará poucas vezes."],
+              ["📱","Reserva Fácil","Agende pelo WhatsApp ou Instagram de forma rápida e prática."],
+              ["🎨","Variedade de Estilos","Cores, tamanhos e estilos para toda a família, do básico ao exclusivo."],
+              ["🚀","Atendimento Personalizado","Nossa equipe te ajuda a escolher o kit ideal para sua aventura na neve."],
+            ].map(([ico, title, desc]) => (
+              <div key={title as string} style={{ display:"flex", gap:16, padding:"18px 20px", background:"#fff", borderRadius:14, textAlign:"left", boxShadow:"0 2px 12px rgba(0,0,0,0.06)" }}>
+                <div style={{ fontSize:28, flexShrink:0 }}>{ico}</div>
+                <div>
+                  <p style={{ margin:"0 0 4px", fontFamily:"Playfair Display,serif", fontSize:16, fontWeight:700, color:"var(--azul-escuro)" }}>{title as string}</p>
+                  <p style={{ margin:0, fontSize:13, color:"#555", lineHeight:1.6 }}>{desc as string}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── PRODUTOS ── */}
+        <section className="products-intro">
+          <p className="eyebrow">Nosso Catálogo</p>
+          <h2>Nossos <em>Produtos</em></h2>
+          <div className="divider" style={{ background:"rgba(201,168,76,0.6)" }} />
+          <p>Peças selecionadas para garantir conforto e estilo na neve</p>
+        </section>
+        <ProductsSection data={data} />
+
+        {/* ── COMO ALUGAR ── */}
+        <section className="how-section">
+          <p className="eyebrow">Passo a passo</p>
+          <h2 style={{ color:"#fff" }}>Como Alugar<br /><em>Seu Look</em></h2>
+          <div className="divider" />
+          <div className="steps">
+            {[
+              ["1","Faça a sua reserva","Acesse o link na bio do nosso Instagram ou entre em contato pelo WhatsApp. Trabalhamos com horários agendados para garantir um atendimento personalizado.","⚠️ Realizamos reserva de horários, não de peças específicas."],
+              ["2","Escolha a data","O ideal é reservar um dia antes do seu passeio, pois o aluguel é por diária.",null],
+              ["3","Visite Nossa Loja","No dia e horário agendados, venha até a Nevou no Chile, escolha seus looks e prepare-se para arrasar na neve!",null],
+              ["4","Devolução","Deve ser feita até as 20h do dia seguinte. Atrasos resultam na cobrança de uma nova diária.",null],
+              ["5","Finalização","Após a devolução, fazemos uma conferência rápida e pronto! Fácil, prático e sem complicações. Agora é só curtir sua experiência na neve! 🇨🇱",null],
+            ].map(([num, title, desc, obs]) => (
+              <div key={num as string} className="step">
+                <b>{num}</b>
+                <div>
+                  <h3>{title as string}</h3>
+                  <p>{desc as string}</p>
+                  {obs && <p style={{ marginTop:8, fontSize:12, color:"rgba(255,255,255,0.5)" }}>{obs as string}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── PREÇOS ── */}
+        <section className="prices-section">
+          <p className="eyebrow">Tabela de Valores</p>
+          <h2 style={{ color:"var(--azul-escuro)" }}>Nossos <em>Kits</em></h2>
+          <div className="divider" />
+
+          {/* Kit Essencial */}
+          <div className="kit-card">
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:12 }}>
+              <div>
+                <h3 style={{ margin:0, fontFamily:"Playfair Display,serif", color:"var(--azul-escuro)", fontSize:22 }}>Kit Essencial</h3>
+                <small style={{ color:"#888", letterSpacing:1, textTransform:"uppercase", fontSize:11 }}>Essential</small>
+              </div>
+              <span style={{ background:"rgba(201,168,76,0.15)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐</span>
+            </div>
+            {[["Macacão","R$ 199 ou CLP 34.000"],["Macacão + 1 acessório","R$ 250 ou CLP 43.000"],["Macacão + 2 acessórios","R$ 300 ou CLP 51.000"],["Macacão + 2 acessórios + bota essencial","R$ 350 ou CLP 60.000"]].map(([desc, price]) => (
+              <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
+                <span style={{ color:"#444" }}>{desc}</span>
+                <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Kit Premium */}
+          <div className="kit-card" style={{ marginTop:16, borderLeft:"4px solid var(--dourado)", background:"#fdf9f0" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:12 }}>
+              <div>
+                <h3 style={{ margin:0, fontFamily:"Playfair Display,serif", color:"var(--azul-escuro)", fontSize:22 }}>Kit Premium</h3>
+                <small style={{ color:"#888", letterSpacing:1, textTransform:"uppercase", fontSize:11 }}>Premium</small>
+              </div>
+              <span style={{ background:"rgba(201,168,76,0.3)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐⭐</span>
+            </div>
+            {[["Macacão","R$ 299 ou CLP 50.000"],["Macacão + 1 acessório","R$ 350 ou CLP 60.000"],["Macacão + 2 acessórios","R$ 400 ou CLP 69.000"],["Macacão + 2 acessórios + bota essencial","R$ 450 ou CLP 77.000"],["Macacão + 2 acessórios + bota premium","R$ 500 ou CLP 86.000"]].map(([desc, price]) => (
+              <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
+                <span style={{ color:"#444" }}>{desc}</span>
+                <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Kit Exclusivo */}
+          <div className="kit-card" style={{ marginTop:16 }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:12 }}>
+              <div>
+                <h3 style={{ margin:0, fontFamily:"Playfair Display,serif", color:"var(--azul-escuro)", fontSize:22 }}>Kit Exclusivo</h3>
+                <small style={{ color:"#888", letterSpacing:1, textTransform:"uppercase", fontSize:11 }}>Exclusive</small>
+              </div>
+              <span style={{ background:"rgba(201,168,76,0.15)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐⭐⭐</span>
+            </div>
+            {[["Macacão","R$ 399 ou CLP 68.000"],["Macacão + 1 acessório + bota essencial","R$ 450 ou CLP 77.000"],["Macacão + 2 acessórios + bota essencial","R$ 500 ou CLP 86.000"],["Macacão + 2 acessórios + bota premium","R$ 550 ou CLP 95.900"]].map(([desc, price]) => (
+              <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
+                <span style={{ color:"#444" }}>{desc}</span>
+                <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Kit Sunset */}
+          <div className="kit-card" style={{ marginTop:16, background:"#e8f0fc", borderLeft:"4px solid var(--azul)" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:12 }}>
+              <div>
+                <h3 style={{ margin:0, fontFamily:"Playfair Display,serif", color:"var(--azul-escuro)", fontSize:22 }}>Kit Sunset</h3>
+                <small style={{ color:"#888", letterSpacing:1, textTransform:"uppercase", fontSize:11 }}>Para eventos na cordilheira</small>
+              </div>
+              <span style={{ background:"rgba(13,45,107,0.15)", color:"var(--azul-escuro)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>🌅</span>
+            </div>
+            <p style={{ margin:"0 0 8px", fontSize:13, color:"#555", lineHeight:1.6 }}>Perfeito para eventos de sunset na cordilheira — indicado para quem não vai esquiar, mas participará de experiências na neve.</p>
+            <p style={{ margin:0, fontWeight:700, color:"var(--azul-escuro)", fontSize:14 }}>A partir de R$ 299 ou CLP 51.000</p>
+          </div>
+
+          {/* Itens Avulsos */}
+          <div className="kit-card" style={{ marginTop:16 }}>
+            <h3 style={{ margin:"0 0 12px", fontFamily:"Playfair Display,serif", color:"var(--azul-escuro)", fontSize:22 }}>Itens Avulsos</h3>
+            {[["Casacos e capas","A partir de R$ 199 ou CLP 34.000"],["Botas","A partir de R$ 80 ou CLP 13.000"],["Macacões Térmicos","A partir de R$ 80 ou CLP 13.000"]].map(([desc, price]) => (
+              <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
+                <span style={{ color:"#444" }}>{desc}</span>
+                <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Checks */}
+          <div style={{ marginTop:24, display:"flex", flexDirection:"column", gap:10 }}>
+            {["Kits higienizados e prontos para uso","Atendimento para te indicar o kit ideal","Evite comprar roupas que você usará apenas uma vez"].map(t => (
+              <div key={t} style={{ display:"flex", gap:12, alignItems:"center", fontSize:13, color:"#444" }}>
+                <div style={{ width:28, height:28, background:"var(--azul)", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontWeight:700, flexShrink:0 }}>✓</div>
+                {t}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── FORMAS DE PAGAMENTO ── */}
+        <section style={{ background:"var(--azul)", padding:"48px 28px" }}>
+          <div style={{ textAlign:"center", marginBottom:32 }}>
+            <p style={{ fontFamily:"Cormorant Garamond,serif", fontSize:12, letterSpacing:4, color:"var(--dourado)", textTransform:"uppercase", marginBottom:8 }}>Facilidade para você</p>
+            <h2 style={{ fontFamily:"Playfair Display,serif", fontSize:28, color:"#fff", marginBottom:12 }}>Formas de <em>Pagamento</em></h2>
+            <div style={{ width:48, height:2, background:"var(--dourado)", margin:"0 auto" }} />
+          </div>
+          <div style={{ display:"flex", flexDirection:"column", gap:14, maxWidth:380, margin:"0 auto" }}>
+            {[["💚","Pix","Pagamento instantâneo"],["💵","Dinheiro","Reais · Pesos Chilenos · Dólar"],["💳","Cartão de Crédito","Principais bandeiras aceitas"],["🔗","Link de Pagamento","Pague de onde você estiver"],["🌐","Wise","Transferência internacional facilitada"]].map(([ico, title, sub]) => (
+              <div key={title as string} style={{ background:"rgba(255,255,255,0.07)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:14, padding:"18px 22px", display:"flex", alignItems:"center", gap:18 }}>
+                <div style={{ width:42, height:42, background:"var(--dourado)", borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, flexShrink:0 }}>{ico}</div>
+                <div>
+                  <p style={{ fontFamily:"Montserrat,sans-serif", fontSize:13, fontWeight:700, color:"#fff", letterSpacing:0.5, margin:0 }}>{title as string}</p>
+                  <p style={{ fontFamily:"Montserrat,sans-serif", fontSize:11, color:"rgba(255,255,255,0.55)", marginTop:2, marginBottom:0 }}>{sub as string}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── RODAPÉ ── */}
+        <section className="footer-section">
+          <div style={{ width:300, maxWidth:"85%", height:180, margin:"0 auto 28px", background:"rgba(255,255,255,0.94)", border:"1px solid rgba(201,168,76,0.32)", borderRadius:18, padding:18, display:"flex", alignItems:"center", justifyContent:"center" }}>
+            <img src="/catalogo/logos/logo-original.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain" }} />
+          </div>
+          <div style={{ display:"flex", flexDirection:"column", gap:14, maxWidth:380, margin:"0 auto 28px" }}>
+            {[["📍 Localização","Santiago, Chile"],["🕐 Horário","10h30 às 21h00 · Todos os dias"],["📱 WhatsApp","+55 21 97322-1855"]].map(([label, val]) => (
+              <div key={label as string} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(255,255,255,0.1)", fontSize:13 }}>
+                <span style={{ color:"rgba(255,255,255,0.55)" }}>{label as string}</span>
+                <span style={{ color:"#fff", fontWeight:600 }}>{val as string}</span>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontFamily:"Cormorant Garamond,serif", fontSize:18, lineHeight:1.7, margin:"0 0 20px" }}>
+            Nevou no Chile, mas você não precisa passar frio na neve.<br />
+            <strong style={{ color:"var(--dourado)" }}>Alugue tudo pronto e viaje tranquilo!</strong>
+          </p>
+          <div style={{ display:"flex", gap:10, alignItems:"center", justifyContent:"center", fontSize:14, color:"rgba(255,255,255,0.7)" }}>
+            <span>🇨🇱</span><span>Viva o Chile. Vista o Melhor.</span><span>🇨🇱</span>
+          </div>
+        </section>
+
+      </div>
     </>
   );
 }
