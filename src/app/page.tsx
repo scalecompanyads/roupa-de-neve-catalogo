@@ -213,6 +213,18 @@ export default async function Home() {
   .produto-cor-btn.is-active {
     border-color: var(--dourado);
     box-shadow: 0 0 0 3px rgba(201,168,76,0.22), inset 0 0 0 2px rgba(255,255,255,0.22);
+  }
+  #placeholder-logo-capa,
+  #placeholder-logo-rodape {
+    background: rgba(255,255,255,0.94) !important;
+    border: 1px solid rgba(201,168,76,0.32) !important;
+    border-radius: 18px !important;
+    padding: 18px !important;
+    box-shadow: 0 14px 42px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.24) inset !important;
+  }
+  #placeholder-logo-capa img,
+  #placeholder-logo-rodape img {
+    filter: none !important;
   }`;
   const colorFilterScript = `
   document.addEventListener('click', function (event) {
