@@ -195,7 +195,7 @@ export default async function Home() {
         {/* ── LOCALIZAÇÃO ── */}
         <section style={{ background:"var(--azul-escuro)", padding:"60px 32px", textAlign:"center", color:"#fff" }}>
           <p className="eyebrow">Onde nos encontrar</p>
-          <h2 style={{ color:"#fff", fontSize:34, fontFamily: "Montserrat, sans-serif", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px" }}>Localização e <em style={{ color:"var(--dourado)", fontStyle: "normal" }}>Horários</em></h2>
+          <h2 style={{ color:"#fff", fontSize:34, fontFamily: "'Playfair Display', serif", fontWeight: 900, textTransform: "uppercase", letterSpacing: "1px" }}>Localização e <em style={{ color:"var(--dourado)", fontStyle: "italic" }}>Horários</em></h2>
           <div className="divider" />
           
           <div className="about-image-container" style={{ maxWidth: 380, margin: "0 auto 32px" }}>
