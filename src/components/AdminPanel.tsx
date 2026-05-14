@@ -41,22 +41,7 @@ const namedColorHex: Record<string, string> = {
   dourado: "#c9a84c"
 };
 
-function splitColorTag(color: string) {
-  const [rawHex, ...nameParts] = color.split("|");
-  const name = nameParts.join("|").trim();
-  if (name) return { hex: rawHex.trim(), name };
-
-  const trimmed = color.trim();
-  const lower = trimmed.toLowerCase();
-  return {
-    hex: /^#([0-9a-f]{6})$/i.test(trimmed) ? trimmed : namedColorHex[lower] || "#111111",
-    name: /^#([0-9a-f]{6})$/i.test(trimmed) ? "Nova cor" : trimmed
-  };
-}
-
-function makeColorTag(hex: string, name: string) {
-  return `${hex}|${name.trim() || "Nova cor"}`;
-}
+import { makeColorTag, splitColorTag } from "@/lib/color-utils";
 
 function normalizeCatalog(data: CatalogData): CatalogData {
   return {
@@ -66,7 +51,7 @@ function normalizeCatalog(data: CatalogData): CatalogData {
       subtitle: "",
       price: "",
       clpPrice: "",
-      images: product.images.slice(0, 2)
+      images: product.images
     }))
   };
 }
@@ -80,7 +65,7 @@ function blankProduct(categoryId: string, order: number): Product {
     price: "",
     order,
     active: true,
-    colors: [makeColorTag("#111111", "Preto")],
+    colors: [makeColorTag("#111111", "", "Preto")],
     images: []
   };
 }
@@ -215,11 +200,15 @@ export function AdminPanel() {
     });
   };
 
-  const updateColorHex = (index: number, hex: string) => {
+  const updateColorHex = (index: number, hex: string, isSecondColor = false) => {
     if (!selected) return;
     const oldColor = selected.colors[index];
     const current = splitColorTag(oldColor);
-    const nextColor = makeColorTag(hex, current.name);
+    const nextColor = makeColorTag(
+      isSecondColor ? current.hex : hex,
+      isSecondColor ? hex : current.hex2,
+      current.name
+    );
     updateColor(index, nextColor);
   };
 
@@ -227,7 +216,7 @@ export function AdminPanel() {
     if (!selected) return;
     const oldColor = selected.colors[index];
     const current = splitColorTag(oldColor);
-    const nextColor = makeColorTag(current.hex, name);
+    const nextColor = makeColorTag(current.hex, current.hex2, name);
     updateColor(index, nextColor);
   };
 
@@ -238,7 +227,7 @@ export function AdminPanel() {
     if (typeof draft === "string") updateColorName(index, draft);
   };
 
-  const addColor = (value = makeColorTag("#111111", "Preto")) => {
+  const addColor = (value = makeColorTag("#111111", "", "Preto")) => {
     if (!selected) return;
     updateProduct({ colors: [...selected.colors, value] });
   };
@@ -261,7 +250,7 @@ export function AdminPanel() {
     const eyeDropper = new (window as typeof window & { EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> } }).EyeDropper();
     const result = await eyeDropper.open();
     if (typeof index === "number") updateColorHex(index, result.sRGBHex);
-    else addColor(makeColorTag(result.sRGBHex, "Nova cor"));
+    else addColor(makeColorTag(result.sRGBHex, "", "Nova cor"));
   };
 
   const addCategory = () => {
@@ -287,10 +276,6 @@ export function AdminPanel() {
 
   const addImage = async (file: File) => {
     if (!selected) return;
-    if (selected.images.length >= 2) {
-      window.alert("Cada produto usa no máximo 2 fotos no carrossel. Remova uma foto antes de adicionar outra.");
-      return;
-    }
     let url = await new Promise<string>((resolve) => {
       const reader = new FileReader();
       reader.onload = () => resolve(String(reader.result));
@@ -393,15 +378,25 @@ export function AdminPanel() {
                     key={color.name}
                     style={{ background: color.hex }}
                     title={color.name}
-                    onClick={() => addColor(makeColorTag(color.hex, color.name))}
+                    onClick={() => addColor(makeColorTag(color.hex, "", color.name))}
                   />
                 ))}
               </div>
 
               <div className="color-list">
-                {selected.colors.map((color, index) => (
+                {selected.colors.map((color, index) => {
+                  const { hex, hex2, name } = splitColorTag(color);
+                  return (
                   <div className="color-row" key={`${color}-${index}`}>
-                    <input type="color" value={splitColorTag(color).hex} onChange={(event) => updateColorHex(index, event.target.value)} />
+                    <input type="color" value={hex || "#111111"} onChange={(event) => updateColorHex(index, event.target.value)} />
+                    {hex2 ? (
+                      <>
+                        <input type="color" value={hex2} onChange={(event) => updateColorHex(index, event.target.value, true)} />
+                        <button type="button" onClick={() => updateColorHex(index, "", true)} title="Remover segunda cor">x</button>
+                      </>
+                    ) : (
+                      <button type="button" onClick={() => updateColorHex(index, "#ffffff", true)} title="Transformar em cor dupla (bicolor)">+</button>
+                    )}
                     <input
                       value={draftColorNames[`${selected.id}-${index}`] ?? splitColorTag(color).name}
                       onBlur={() => commitColorName(index)}
@@ -420,15 +415,15 @@ export function AdminPanel() {
                     </button>
                     <button type="button" onClick={() => removeColor(index)}>Remover</button>
                   </div>
-                ))}
+                )})}
               </div>
             </div>
 
             <div className="image-editor">
               <div>
                 <strong>Fotos do carrossel</strong>
-                <p>Use 2 fotos por produto. A primeira aparece como abertura do carrossel.</p>
-                <input type="file" accept="image/*" disabled={selected.images.length >= 2} onChange={(event) => event.target.files?.[0] && addImage(event.target.files[0])} />
+                <p>Padronize o formato das fotos na proporção <strong>3/4 (ex: 900x1200 px)</strong> para um visual perfeito.</p>
+                <input type="file" accept="image/*" onChange={(event) => event.target.files?.[0] && addImage(event.target.files[0])} />
               </div>
               <div className="admin-images">
                 {selected.images.map((image) => (

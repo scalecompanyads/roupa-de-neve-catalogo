@@ -1,6 +1,7 @@
 import { getCatalogData } from "@/lib/catalog-service";
 import type { CatalogData, Product } from "@/lib/types";
 import CatalogScript from "@/components/CatalogScript";
+import { splitColorTag, colorCss } from "@/lib/color-utils";
 
 export const dynamic = "force-dynamic";
 
@@ -10,30 +11,6 @@ function categoryBg(tone: string) {
   if (tone === "blue") return "var(--azul)";
   if (tone === "dark") return "var(--azul-escuro)";
   return "linear-gradient(135deg,var(--vermelho-escuro),var(--vermelho))";
-}
-
-function splitColorTag(color: string) {
-  const [rawHex, ...nameParts] = color.split("|");
-  const name = nameParts.join("|").trim();
-  return { swatch: name ? rawHex.trim() : color.trim(), name: name || color.trim() };
-}
-
-function colorCss(color: string) {
-  const { swatch } = splitColorTag(color);
-  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(swatch)) return swatch;
-  const v = swatch.toLowerCase();
-  if (v.includes("preto")) return "#111";
-  if (v.includes("branco") || v.includes("off-white")) return "#f4f0e8";
-  if (v.includes("marrom")) return "#5a3727";
-  if (v.includes("cinza") || v.includes("prata")) return "#9aa0a6";
-  if (v.includes("rosa")) return "#f4a8bc";
-  if (v.includes("vermelho")) return "#c8102e";
-  if (v.includes("bege")) return "#c7aa83";
-  if (v.includes("verde")) return "#0d6b43";
-  if (v.includes("vinho")) return "#5b1230";
-  if (v.includes("azul")) return "#15285f";
-  if (v.includes("dourado")) return "#c9a84c";
-  return "transparent";
 }
 
 /* ─── Sub-components ─── */
