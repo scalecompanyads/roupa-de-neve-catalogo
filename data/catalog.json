@@ -1,0 +1,588 @@
+﻿{
+  "categories": [
+    {
+      "id": "macacoes",
+      "name": "Macacões",
+      "tagline": "Impermeáveis · Térmicos · Alta Performance",
+      "tone": "red",
+      "order": 1
+    },
+    {
+      "id": "casacos",
+      "name": "Casacos e Capas",
+      "tagline": "Estilo · Conforto · Proteção",
+      "tone": "blue",
+      "order": 2
+    },
+    {
+      "id": "conjuntos",
+      "name": "Conjuntos",
+      "tagline": "Looks Completos · Estilo Total",
+      "tone": "red",
+      "order": 3
+    },
+    {
+      "id": "botas",
+      "name": "Botas e Acessórios",
+      "tagline": "Conforto · Segurança · Estilo",
+      "tone": "dark",
+      "order": 4
+    }
+  ],
+  "products": [
+    {
+      "id": "macacao-01",
+      "categoryId": "macacoes",
+      "name": "Macacão 01",
+      "subtitle": "",
+      "price": "",
+      "order": 1,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/macacoes/items/1/IMG_5038.JPG",
+          "url": "/catalogo/macacoes/items/1/IMG_5038.JPG",
+          "alt": "Macacão 01",
+          "color": "#353b47|Cinza",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/macacoes/items/1/IMG_5039.JPG",
+          "url": "/catalogo/macacoes/items/1/IMG_5039.JPG",
+          "alt": "Macacão 01 detalhe",
+          "color": "#5a3727|Marrom",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "#353b47|Cinza",
+        "#5a3727|Marrom"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "macacao-02",
+      "categoryId": "macacoes",
+      "name": "Macacão 02",
+      "subtitle": "",
+      "price": "",
+      "order": 2,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/macacoes/items/2/IMG_5052.JPG",
+          "url": "/catalogo/macacoes/items/2/IMG_5052.JPG",
+          "alt": "Macacão 02",
+          "color": "Cinza",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/macacoes/items/2/IMG_5053.JPG",
+          "url": "/catalogo/macacoes/items/2/IMG_5053.JPG",
+          "alt": "Macacão 02 detalhe",
+          "color": "Preto",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Cinza",
+        "Preto"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "macacao-03",
+      "categoryId": "macacoes",
+      "name": "Macacão 03",
+      "subtitle": "",
+      "price": "",
+      "order": 3,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/macacoes/items/3/IMG_5057.JPG",
+          "url": "/catalogo/macacoes/items/3/IMG_5057.JPG",
+          "alt": "Macacão 03",
+          "color": "Vermelho",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/macacoes/items/3/IMG_5058.JPG",
+          "url": "/catalogo/macacoes/items/3/IMG_5058.JPG",
+          "alt": "Macacão 03 detalhe",
+          "color": "Branco",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Rosa",
+        "Bege"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "macacao-04",
+      "categoryId": "macacoes",
+      "name": "Macacão 04",
+      "subtitle": "",
+      "price": "",
+      "order": 4,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/macacoes/items/4/IMG_5074.JPG",
+          "url": "/catalogo/macacoes/items/4/IMG_5074.JPG",
+          "alt": "Macacão 04",
+          "color": "Dourado",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/macacoes/items/4/IMG_5090.JPG",
+          "url": "/catalogo/macacoes/items/4/IMG_5090.JPG",
+          "alt": "Macacão 04 detalhe",
+          "color": "Preto",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Preto",
+        "Cinza"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "macacao-05",
+      "categoryId": "macacoes",
+      "name": "Macacão 05",
+      "subtitle": "",
+      "price": "",
+      "order": 5,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/macacoes/items/5/25e1339b-7609-4ed9-80b2-e219339da99f.JPG",
+          "url": "/catalogo/macacoes/items/5/25e1339b-7609-4ed9-80b2-e219339da99f.JPG",
+          "alt": "Macacão 05",
+          "color": "Exclusivo",
+          "isCover": true
+        }
+      ],
+      "colors": [
+        "Marrom",
+        "Off-white"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "macacao-06",
+      "categoryId": "macacoes",
+      "name": "Macacão 06",
+      "subtitle": "",
+      "price": "",
+      "order": 6,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/macacoes/items/6/32b07301-c078-414d-b776-dd77db876096.JPG",
+          "url": "/catalogo/macacoes/items/6/32b07301-c078-414d-b776-dd77db876096.JPG",
+          "alt": "Macacão 06",
+          "color": "Exclusivo",
+          "isCover": true
+        }
+      ],
+      "colors": [
+        "Rosa claro"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "macacao-07",
+      "categoryId": "macacoes",
+      "name": "Macacão 07",
+      "subtitle": "",
+      "price": "",
+      "order": 7,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/macacoes/items/7/d62ec155-7d26-465d-9df6-2d2b7a50d4e0.JPG",
+          "url": "/catalogo/macacoes/items/7/d62ec155-7d26-465d-9df6-2d2b7a50d4e0.JPG",
+          "alt": "Macacão 07",
+          "color": "Exclusivo",
+          "isCover": true
+        }
+      ],
+      "colors": [
+        "Off-white",
+        "Preto",
+        "Bege"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "casaco-01",
+      "categoryId": "casacos",
+      "name": "Casaco 01",
+      "subtitle": "",
+      "price": "",
+      "order": 1,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/casacos/items/1/IMG_5030.JPG",
+          "url": "/catalogo/casacos/items/1/IMG_5030.JPG",
+          "alt": "Casaco 01",
+          "color": "Branco",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/casacos/items/1/IMG_5031.JPG",
+          "url": "/catalogo/casacos/items/1/IMG_5031.JPG",
+          "alt": "Casaco 01 detalhe",
+          "color": "Off-white",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Verde",
+        "Vermelho"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "casaco-02",
+      "categoryId": "casacos",
+      "name": "Casaco 02",
+      "subtitle": "",
+      "price": "",
+      "order": 2,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/casacos/items/2/IMG_5032.JPG",
+          "url": "/catalogo/casacos/items/2/IMG_5032.JPG",
+          "alt": "Casaco 02",
+          "color": "Vinho",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/casacos/items/2/IMG_5033.JPG",
+          "url": "/catalogo/casacos/items/2/IMG_5033.JPG",
+          "alt": "Casaco 02 detalhe",
+          "color": "Preto",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Vinho",
+        "Preto"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "casaco-03",
+      "categoryId": "casacos",
+      "name": "Casaco 03",
+      "subtitle": "",
+      "price": "",
+      "order": 3,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/casacos/items/3/IMG_5071.JPG",
+          "url": "/catalogo/casacos/items/3/IMG_5071.JPG",
+          "alt": "Casaco 03",
+          "color": "Azul",
+          "isCover": true
+        }
+      ],
+      "colors": [
+        "Prata",
+        "Vinho",
+        "Preto",
+        "Animal print"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "casaco-04",
+      "categoryId": "casacos",
+      "name": "Casaco 04",
+      "subtitle": "",
+      "price": "",
+      "order": 4,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/casacos/items/4/IMG_5080.JPG",
+          "url": "/catalogo/casacos/items/4/IMG_5080.JPG",
+          "alt": "Casaco 04",
+          "color": "Preto",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/casacos/items/4/IMG_5081.JPG",
+          "url": "/catalogo/casacos/items/4/IMG_5081.JPG",
+          "alt": "Casaco 04 detalhe",
+          "color": "Azul-marinho",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Preto",
+        "Azul-marinho"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "conjunto-01",
+      "categoryId": "conjuntos",
+      "name": "Conjunto 01",
+      "subtitle": "",
+      "price": "",
+      "order": 1,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/conjuntos/items/1/IMG_5060.JPG",
+          "url": "/catalogo/conjuntos/items/1/IMG_5060.JPG",
+          "alt": "Conjunto 01",
+          "color": "Branco",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/conjuntos/items/1/IMG_5061.JPG",
+          "url": "/catalogo/conjuntos/items/1/IMG_5061.JPG",
+          "alt": "Conjunto 01 detalhe",
+          "color": "Preto",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Branco",
+        "Preto"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "conjunto-02",
+      "categoryId": "conjuntos",
+      "name": "Conjunto 02",
+      "subtitle": "",
+      "price": "",
+      "order": 2,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/conjuntos/items/2/IMG_5064.JPG",
+          "url": "/catalogo/conjuntos/items/2/IMG_5064.JPG",
+          "alt": "Conjunto 02",
+          "color": "Rosa",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/conjuntos/items/2/IMG_5066.JPG",
+          "url": "/catalogo/conjuntos/items/2/IMG_5066.JPG",
+          "alt": "Conjunto 02 detalhe",
+          "color": "Cinza",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Rosa",
+        "Vermelho"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "conjunto-03",
+      "categoryId": "conjuntos",
+      "name": "Conjunto 03",
+      "subtitle": "",
+      "price": "",
+      "order": 3,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/conjuntos/items/3/e0ebede3-429f-4a47-abd2-25d45a0a92c9.JPG",
+          "url": "/catalogo/conjuntos/items/3/e0ebede3-429f-4a47-abd2-25d45a0a92c9.JPG",
+          "alt": "Conjunto 03",
+          "color": "Exclusivo",
+          "isCover": true
+        }
+      ],
+      "colors": [
+        "Marrom",
+        "Bege",
+        "Verde"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "conjunto-04",
+      "categoryId": "conjuntos",
+      "name": "Conjunto 04",
+      "subtitle": "",
+      "price": "",
+      "order": 4,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/conjuntos/items/4/IMG_5077.JPG",
+          "url": "/catalogo/conjuntos/items/4/IMG_5077.JPG",
+          "alt": "Conjunto 04",
+          "color": "Preto",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/conjuntos/items/4/IMG_5078.JPG",
+          "url": "/catalogo/conjuntos/items/4/IMG_5078.JPG",
+          "alt": "Conjunto 04 detalhe",
+          "color": "Branco",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Xadrez preto e branco"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "bota-01",
+      "categoryId": "botas",
+      "name": "Bota 01",
+      "subtitle": "",
+      "price": "",
+      "order": 1,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/botas/items/Botas 1/IMG_5017.JPG",
+          "url": "/catalogo/botas/items/Botas 1/IMG_5017.JPG",
+          "alt": "Bota 01",
+          "color": "Preta",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/botas/items/Botas 1/IMG_5018.JPG",
+          "url": "/catalogo/botas/items/Botas 1/IMG_5018.JPG",
+          "alt": "Bota 01 detalhe",
+          "color": "Marrom",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Dourado"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "bota-02",
+      "categoryId": "botas",
+      "name": "Bota 02",
+      "subtitle": "",
+      "price": "",
+      "order": 2,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/botas/items/Botas 2/IMG_5072.JPG",
+          "url": "/catalogo/botas/items/Botas 2/IMG_5072.JPG",
+          "alt": "Bota 02",
+          "color": "Preta",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/botas/items/Botas 2/IMG_5087.JPG",
+          "url": "/catalogo/botas/items/Botas 2/IMG_5087.JPG",
+          "alt": "Bota 02 detalhe",
+          "color": "Cinza",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Preto"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "bota-03",
+      "categoryId": "botas",
+      "name": "Bota 03",
+      "subtitle": "",
+      "price": "",
+      "order": 3,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/botas/items/Botas 3/IMG_5075.JPG",
+          "url": "/catalogo/botas/items/Botas 3/IMG_5075.JPG",
+          "alt": "Bota 03",
+          "color": "Branca",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/botas/items/Botas 3/IMG_5085.JPG",
+          "url": "/catalogo/botas/items/Botas 3/IMG_5085.JPG",
+          "alt": "Bota 03 detalhe",
+          "color": "Preta",
+          "isCover": false
+        }
+      ],
+      "colors": [
+        "Preto",
+        "Branco"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "bota-04",
+      "categoryId": "botas",
+      "name": "Bota 04",
+      "subtitle": "",
+      "price": "",
+      "order": 4,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/botas/items/Botas 4/IMG_5083.JPG",
+          "url": "/catalogo/botas/items/Botas 4/IMG_5083.JPG",
+          "alt": "Bota 04",
+          "color": "Preta",
+          "isCover": true
+        }
+      ],
+      "colors": [
+        "Preto"
+      ],
+      "clpPrice": ""
+    },
+    {
+      "id": "oculos-01",
+      "categoryId": "botas",
+      "name": "Óculos de Neve",
+      "subtitle": "",
+      "price": "",
+      "order": 5,
+      "active": true,
+      "images": [
+        {
+          "id": "/catalogo/botas/items/Óculos/IMG_5086.JPG",
+          "url": "/catalogo/botas/items/Óculos/IMG_5086.JPG",
+          "alt": "Óculos de neve",
+          "color": "Preto",
+          "isCover": true
+        },
+        {
+          "id": "/catalogo/botas/items/Óculos/IMG_5088.JPG",
+          "url": "/catalogo/botas/items/Óculos/IMG_5088.JPG",
+          "alt": "Óculos de neve detalhe",
+          "color": "Branco",
+          "isCover": false
+        }
+      ],
+      "colors": [],
+      "clpPrice": ""
+    }
+  ]
+}
