@@ -184,9 +184,11 @@ export default async function Home() {
           <h2>Quem <em>Somos</em></h2>
           <div className="divider" />
           <p>
-            A <strong>Nevou no Chile</strong> nasceu da paixão por proporcionar experiências inesquecíveis na neve.
-            Somos especializados em aluguel de roupas e acessórios de neve de alta qualidade para quem quer curtir
-            o inverno chileno com <strong>estilo, conforto e praticidade</strong>.
+            A <strong>Nevou no Chile</strong> nasceu para elevar a experiência de quem sonha viver a neve com estilo e praticidade. Somos uma empresa brasileira especializada em aluguel de roupas femininas e masculinas específicas para atividades na neve e roupas casuais para te manter protegido e elegante no frio. Não basta estar aquecido, é preciso estar bem vestido, com sofisticação e presença!
+            <br /><br />
+            Nosso propósito vai além do aluguel: queremos que cada cliente se sinta confiante, confortável e estiloso, sem preocupações e sem excessos na bagagem! Selecionamos peças modernas, elegantes e funcionais para transformar sua viagem em uma experiência memorável.
+            <br /><br />
+            <strong>Nevou no Chile? Vista-se à altura!</strong>
           </p>
         </section>
 
