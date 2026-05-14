@@ -177,6 +177,9 @@ export default async function Home() {
 
         {/* ── QUEM SOMOS ── */}
         <section className="about-section">
+          <div className="about-image-container">
+            <img src="/catalogo/IMG_3826.jpg" alt="Equipe Nevou no Chile" className="about-image" />
+          </div>
           <p className="eyebrow">Nossa História</p>
           <h2>Quem <em>Somos</em></h2>
           <div className="divider" />
@@ -190,8 +193,13 @@ export default async function Home() {
         {/* ── LOCALIZAÇÃO ── */}
         <section style={{ background:"var(--azul-escuro)", padding:"60px 32px", textAlign:"center", color:"#fff" }}>
           <p className="eyebrow">Onde nos encontrar</p>
-          <h2 style={{ color:"#fff", fontSize:34 }}>Localização e <em style={{ color:"var(--dourado)" }}>Horários</em></h2>
+          <h2 style={{ color:"#fff", fontSize:32, fontFamily: "Montserrat, sans-serif", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px" }}>Localização e <em style={{ color:"var(--dourado)", fontStyle: "normal" }}>Horários</em></h2>
           <div className="divider" />
+          
+          <div className="about-image-container" style={{ maxWidth: 380, margin: "0 auto 32px" }}>
+            <img src="/catalogo/Cópia%20de%20IMG_9776.jpg" alt="Nevou no Chile Localização" className="about-image" />
+          </div>
+
           <div style={{ maxWidth:380, margin:"0 auto", display:"flex", flexDirection:"column", gap:20 }}>
             {[
               { label:"📍 Localização", val:"Santiago, Chile" },
@@ -200,7 +208,7 @@ export default async function Home() {
             ].map(({ label, val }) => (
               <div key={label} style={{ background:"rgba(255,255,255,0.07)", border:"1px solid rgba(201,168,76,0.2)", borderRadius:14, padding:"18px 22px", textAlign:"left" }}>
                 <p style={{ margin:0, fontFamily:"Montserrat,sans-serif", fontSize:11, color:"rgba(255,255,255,0.55)", letterSpacing:1 }}>{label}</p>
-                <p style={{ margin:"6px 0 0", fontFamily:"Playfair Display,serif", fontSize:17, color:"#fff", fontWeight:700 }}>{val}</p>
+                <p style={{ margin:"6px 0 0", fontFamily:"Montserrat,sans-serif", fontSize:16, color:"#fff", fontWeight:600 }}>{val}</p>
               </div>
             ))}
           </div>
