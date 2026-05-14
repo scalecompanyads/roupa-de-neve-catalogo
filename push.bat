@@ -1,3 +1,3 @@
 git add -A
-git commit -m "fix carousel and color filter"
+git commit -m "visual polish cards responsive"
 git push
