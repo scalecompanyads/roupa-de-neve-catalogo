@@ -143,20 +143,31 @@ ${products.map(renderProductCard).join("\n")}
     .join("\n");
 }
 
-async function getOriginalCatalogHtml() {
-  const files = await readdir(process.cwd());
-  const htmlFile = files.find((file) => file.toLowerCase().endsWith(".html"));
-
-  if (!htmlFile) {
-    throw new Error("Arquivo HTML do catálogo original não encontrado.");
+async function getOriginalCatalogHtml(): Promise<string | null> {
+  try {
+    const files = await readdir(process.cwd());
+    const htmlFile = files.find((file) => file.toLowerCase().endsWith(".html"));
+    if (!htmlFile) return null;
+    return readFile(path.join(process.cwd(), htmlFile), "utf8");
+  } catch {
+    return null;
   }
-
-  return readFile(path.join(process.cwd(), htmlFile), "utf8");
 }
 
 export default async function Home() {
   const data = await getCatalogData();
   const originalHtml = await getOriginalCatalogHtml();
+
+  // Fallback: se o HTML base não existir (ex: Vercel), renderiza só os produtos dinâmicos
+  if (!originalHtml) {
+    return (
+      <main style={{ fontFamily: "Montserrat, sans-serif", padding: "2rem", maxWidth: 960, margin: "0 auto" }}>
+        <h1 style={{ color: "#0d2d6b" }}>Catálogo Nevou no Chile</h1>
+        <div dangerouslySetInnerHTML={{ __html: renderProductsSection(data) }} />
+      </main>
+    );
+  }
+
   const { styles, body } = extractHtmlParts(originalHtml);
   const carouselStyles = `
   .produto-carousel {
