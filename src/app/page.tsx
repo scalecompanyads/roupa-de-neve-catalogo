@@ -166,8 +166,8 @@ export default async function Home() {
         {/* ── CAPA ── */}
         <section className="cover-section">
           <SnowFlakes />
-          <div style={{ position:"relative", zIndex:1, width:300, maxWidth:"82%", height:200, margin:"0 auto 8px", background:"rgba(255,255,255,0.94)", border:"1px solid rgba(201,168,76,0.32)", borderRadius:18, padding:18, boxShadow:"0 14px 42px rgba(0,0,0,0.18)", display:"flex", alignItems:"center", justifyContent:"center" }}>
-            <img src="/catalogo/logos/logo-original.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain" }} />
+          <div style={{ position:"relative", zIndex:1, width:300, maxWidth:"82%", height:200, margin:"0 auto 8px", display:"flex", alignItems:"center", justifyContent:"center" }}>
+            <img src="/catalogo/logos/logo-branca.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain", filter:"drop-shadow(0 4px 12px rgba(0,0,0,0.3))" }} />
           </div>
           <p style={{ position:"relative", zIndex:1 }}>Temporada de Neve · Chile</p>
           <div className="cover-line" style={{ position:"relative", zIndex:1 }}>
@@ -379,8 +379,8 @@ export default async function Home() {
 
         {/* ── RODAPÉ ── */}
         <section className="footer-section">
-          <div style={{ width:300, maxWidth:"85%", height:180, margin:"0 auto 28px", background:"rgba(255,255,255,0.94)", border:"1px solid rgba(201,168,76,0.32)", borderRadius:18, padding:18, display:"flex", alignItems:"center", justifyContent:"center" }}>
-            <img src="/catalogo/logos/logo-original.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain" }} />
+          <div style={{ width:300, maxWidth:"85%", height:180, margin:"0 auto 28px", display:"flex", alignItems:"center", justifyContent:"center" }}>
+            <img src="/catalogo/logos/logo-branca.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain", filter:"drop-shadow(0 4px 12px rgba(0,0,0,0.3))" }} />
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:14, maxWidth:380, margin:"0 auto 28px" }}>
             {[["📍 Localização","Santiago, Chile"],["🕐 Horário","10h30 às 21h00 · Todos os dias"],["📱 WhatsApp","+55 21 97322-1855"]].map(([label, val]) => (
