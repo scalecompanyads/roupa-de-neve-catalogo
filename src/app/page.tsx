@@ -193,7 +193,7 @@ export default async function Home() {
         </section>
 
         {/* ── LOCALIZAÇÃO ── */}
-        <section style={{ background:"var(--azul-escuro)", padding:"60px 32px", textAlign:"center", color:"#fff" }}>
+        <section className="location-section" style={{ background:"var(--azul-escuro)", padding:"60px 32px", textAlign:"center", color:"#fff" }}>
           <p className="eyebrow">Onde nos encontrar</p>
           <h2 style={{ color:"#fff", fontSize:34, fontFamily: "'Playfair Display', serif", fontWeight: 900 }}>Localização e <em style={{ color:"var(--dourado)", fontStyle: "italic" }}>Horários</em></h2>
           <div className="divider" />
@@ -292,7 +292,7 @@ export default async function Home() {
               </div>
               <span style={{ background:"rgba(201,168,76,0.15)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐</span>
             </div>
-            {[["Macacão","R$ 199 ou CLP 34.000"],["Macacão + 1 acessório","R$ 250 ou CLP 43.000"],["Macacão + 2 acessórios","R$ 300 ou CLP 51.000"],["Macacão + 2 acessórios + bota essencial","R$ 350 ou CLP 60.000"]].map(([desc, price]) => (
+            {[["Macacão + 1 acessório","R$ 119 ou CLP 20.999"],["Macacão + 2 acessórios","R$ 199 ou CLP 34.999"],["Macacão + 2 acessórios + bota essencial","R$ 299 ou CLP 52.999"]].map(([desc, price]) => (
               <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
                 <span style={{ color:"#444" }}>{desc}</span>
                 <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
