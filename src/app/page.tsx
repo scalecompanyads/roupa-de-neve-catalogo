@@ -195,7 +195,7 @@ export default async function Home() {
 
         <section className="info-banner-section">
           <p className="info-banner-kicker">Kits a partir de R$115,00</p>
-          <p className="info-banner-text">Em caso de passeio cancelado, crédito de<br />100% na loja</p>
+          <p className="info-banner-text">Em caso de passeio cancelado,<br />crédito de 100% na loja</p>
         </section>
 
         {/* ── LOCALIZAÇÃO ── */}
