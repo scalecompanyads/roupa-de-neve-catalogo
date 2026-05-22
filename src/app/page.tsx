@@ -192,6 +192,11 @@ export default async function Home() {
           </p>
         </section>
 
+        <section className="info-banner-section">
+          <p className="info-banner-kicker">Kits a partir de R$115,00</p>
+          <p className="info-banner-text">Em caso de passeio cancelado, crédito de 100% na loja</p>
+        </section>
+
         {/* ── LOCALIZAÇÃO ── */}
         <section className="location-section" style={{ background:"var(--azul-escuro)", padding:"60px 32px", textAlign:"center", color:"#fff" }}>
           <p className="eyebrow">Onde nos encontrar</p>
@@ -292,7 +297,7 @@ export default async function Home() {
               </div>
               <span style={{ background:"rgba(201,168,76,0.15)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐</span>
             </div>
-            {[["Macacão + 1 acessório","R$ 119 ou CLP 20.999"],["Macacão + 2 acessórios","R$ 199 ou CLP 34.999"],["Macacão + 2 acessórios + bota essencial","R$ 299 ou CLP 52.999"]].map(([desc, price]) => (
+            {[["Macacão + 1 acessório","R$ 115,00 ou 19.000 CLP"],["Macacão + 2 acessórios","R$ 199 ou CLP 34.999"],["Macacão + 2 acessórios + bota essencial","R$ 299 ou CLP 52.999"]].map(([desc, price]) => (
               <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
                 <span style={{ color:"#444" }}>{desc}</span>
                 <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
