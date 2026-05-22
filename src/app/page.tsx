@@ -204,7 +204,7 @@ export default async function Home() {
           <h2 style={{ color:"#fff", fontSize:34, fontFamily: "'Playfair Display', serif", fontWeight: 900 }}>Localização e <em style={{ color:"var(--dourado)", fontStyle: "italic" }}>Horários</em></h2>
           <div className="divider" />
           
-          <div className="about-image-container" style={{ maxWidth: 380, margin: "0 auto 32px" }}>
+          <div className="about-image-container location-image-container" style={{ maxWidth: 380 }}>
             <img src="/catalogo/Cópia%20de%20IMG_9776.jpg" alt="Nevou no Chile Localização" className="about-image" />
           </div>
 

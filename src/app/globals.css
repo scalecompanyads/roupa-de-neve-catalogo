@@ -138,6 +138,10 @@ select {
   width: 100%;
 }
 
+.location-image-container {
+  margin: 0 auto 40px;
+}
+
 .about-image-container::before {
   content: "";
   position: absolute;
@@ -275,6 +279,16 @@ h2 em {
   line-height: 1.5;
   letter-spacing: 0.3px;
   margin: 0;
+}
+
+.loc-val a[x-apple-data-detectors],
+.loc-val a[href^="tel"],
+.footer-section a[x-apple-data-detectors],
+.footer-section a[href^="tel"] {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-decoration: none !important;
+  font: inherit !important;
 }
 
 .products-intro {
