@@ -177,15 +177,16 @@ export default async function Home() {
 
         {/* ── QUEM SOMOS ── */}
         <section className="about-section">
-          <div className="about-image-container">
-            <img src="/catalogo/IMG_3826.jpg" alt="Equipe Nevou no Chile" className="about-image" />
-          </div>
           <p className="eyebrow">Nossa História</p>
           <h2>Quem <em>Somos</em></h2>
           <div className="divider" />
           <p className="about-text">
             A <strong>Nevou no Chile</strong> nasceu para elevar a experiência de quem sonha viver a neve com estilo e praticidade. Somos uma empresa brasileira especializada em aluguel de roupas femininas e masculinas específicas para atividades na neve e roupas casuais para te manter protegido e elegante no frio. Não basta estar aquecido, é preciso estar bem vestido, com sofisticação e presença!
-            <br /><br />
+          </p>
+          <div className="about-image-container">
+            <img src="/catalogo/IMG_3826.jpg" alt="Equipe Nevou no Chile" className="about-image" />
+          </div>
+          <p className="about-text">
             Nosso propósito vai além do aluguel: queremos que cada cliente se sinta confiante, confortável e estiloso, sem preocupações e sem excessos na bagagem! Selecionamos peças modernas, elegantes e funcionais para transformar sua viagem em uma experiência memorável.
             <br /><br />
             <strong>Nevou no Chile? Vista-se à altura!</strong>
@@ -194,7 +195,7 @@ export default async function Home() {
 
         <section className="info-banner-section">
           <p className="info-banner-kicker">Kits a partir de R$115,00</p>
-          <p className="info-banner-text">Em caso de passeio cancelado, crédito de 100% na loja</p>
+          <p className="info-banner-text">Em caso de passeio cancelado, crédito de<br />100% na loja</p>
         </section>
 
         {/* ── LOCALIZAÇÃO ── */}
