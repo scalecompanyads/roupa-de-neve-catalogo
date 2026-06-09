@@ -210,7 +210,7 @@ export default async function Home() {
 
           <div className="loc-box">
             {[
-              { label:"📍 Localização", val:"Santiago, Chile" },
+              { label:"📍 Localização", val:"General Holley 2363, sala 502, Providencia, Santiago" },
               { label:"🕐 Horário de Funcionamento", val:"Todos os dias das 10h30 às 21h00" },
               { label:"📱 WhatsApp", val:"+55 21 97322-1855" },
             ].map(({ label, val }) => (
@@ -401,7 +401,7 @@ export default async function Home() {
             <img src="/catalogo/logos/logo-branca.png" alt="Logo Nevou no Chile" style={{ maxWidth:"100%", maxHeight:"100%", objectFit:"contain", filter:"drop-shadow(0 4px 12px rgba(0,0,0,0.3))" }} />
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:14, maxWidth:380, margin:"0 auto 28px" }}>
-            {[["📍 Localização","Santiago, Chile"],["🕐 Horário","10h30 às 21h00 · Todos os dias"],["📱 WhatsApp","+55 21 97322-1855"]].map(([label, val]) => (
+            {[["📍 Localização","General Holley 2363, sala 502, Providencia, Santiago"],["🕐 Horário","10h30 às 21h00 · Todos os dias"],["📱 WhatsApp","+55 21 97322-1855"]].map(([label, val]) => (
               <div key={label as string} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(255,255,255,0.1)", fontSize:13 }}>
                 <span style={{ color:"rgba(255,255,255,0.55)" }}>{label as string}</span>
                 <span style={{ color:"#fff", fontWeight:600 }}>{val as string}</span>

@@ -128,7 +128,7 @@ export function Catalog({ data = initialCatalogData }: Props) {
 
       <footer className="footer-section">
         <Image src="/catalogo/logos/logo-original.png" alt="Nevou no Chile" width={340} height={230} />
-        <p>Santiago, Chile</p>
+        <p>General Holley 2363, sala 502, Providencia, Santiago</p>
         <p>10h30 às 21h00 · Todos os dias</p>
         <p>+55 21 97322-1855</p>
       </footer>
