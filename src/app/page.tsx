@@ -364,13 +364,19 @@ export default async function Home() {
               <span style={{ background:"rgba(13,45,107,0.15)", color:"var(--azul-escuro)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>🌅</span>
             </div>
             <p style={{ margin:"0 0 8px", fontSize:13, color:"#555", lineHeight:1.6 }}>Perfeito para eventos de sunset na cordilheira — indicado para quem não vai esquiar, mas participará de experiências na neve.</p>
-            <p style={{ margin:0, fontWeight:700, color:"var(--azul-escuro)", fontSize:14 }}>A partir de R$ 299 ou CLP 51.000</p>
+            <p style={{ margin:0, fontWeight:700, color:"var(--azul-escuro)", fontSize:14 }}>A partir de R$ 399 ou CLP 65.000</p>
           </div>
 
           {/* Itens Avulsos */}
           <div className="kit-card" style={{ marginTop:16 }}>
             <h3 style={{ margin:"0 0 12px", fontFamily:"Playfair Display,serif", color:"var(--azul-escuro)", fontSize:22 }}>Itens Avulsos</h3>
-            {[["Casacos e capas","A partir de R$ 199 ou CLP 34.000"],["Botas","A partir de R$ 80 ou CLP 13.000"],["Macacões Térmicos","A partir de R$ 80 ou CLP 13.000"]].map(([desc, price]) => (
+            {[
+              ["Casacos e capas", "A partir de R$ 199 ou CLP 34.000"],
+              ["Botas", "A partir de R$ 100 ou CLP 17.000"],
+              ["Macacões Térmicos", "A partir de R$ 80 ou CLP 13.000"],
+              ["Óculos e luvas", "A partir de R$ 80 ou CLP 13.000"],
+              ["Gorro", "A partir de R$ 30 ou CLP 5.000"]
+            ].map(([desc, price]) => (
               <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
                 <span style={{ color:"#444" }}>{desc}</span>
                 <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>

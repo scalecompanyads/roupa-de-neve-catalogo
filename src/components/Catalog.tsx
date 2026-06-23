@@ -118,7 +118,8 @@ export function Catalog({ data = initialCatalogData }: Props) {
           ["Kit Premium", ["Macacão — a partir de R$ 299 ou CLP 50.000", "Macacão + 2 acessórios — a partir de R$ 400 ou CLP 69.000", "Macacão + 2 acessórios + bota premium — a partir de R$ 500 ou CLP 86.000"]],
           ["Kit Exclusivo", ["Macacão — a partir de R$ 399 ou CLP 68.000", "Macacão + 2 acessórios + bota premium — a partir de R$ 550 ou CLP 95.900"]],
           ["Super Exclusiva", ["Peças e valores — A consultar"]],
-          ["Itens Avulsos", ["Casacos e capas — a partir de R$ 199", "Botas — a partir de R$ 80", "Macacões térmicos — a partir de R$ 80"]]
+          ["Kit Sunset", ["Perfeito para eventos na cordilheira — a partir de R$ 399 ou CLP 65.000"]],
+          ["Itens Avulsos", ["Casacos e capas — a partir de R$ 199 ou CLP 34.000", "Botas — a partir de R$ 100 ou CLP 17.000", "Macacões térmicos — a partir de R$ 80 ou CLP 13.000", "Óculos e luvas — a partir de R$ 80 ou CLP 13.000", "Gorro — a partir de R$ 30 ou CLP 5.000"]]
         ].map(([title, lines]) => (
           <div className="kit-card" key={title as string}>
             <h3>{title as string}</h3>
