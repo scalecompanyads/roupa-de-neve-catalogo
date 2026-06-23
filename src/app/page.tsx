@@ -194,7 +194,6 @@ export default async function Home() {
         </section>
 
         <section className="info-banner-section">
-          <p className="info-banner-kicker">Kits a partir de R$115,00</p>
           <p className="info-banner-text">Em caso de passeio cancelado,<br />crédito de 100% na loja</p>
         </section>
 
@@ -298,7 +297,7 @@ export default async function Home() {
               </div>
               <span style={{ background:"rgba(201,168,76,0.15)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐</span>
             </div>
-            {[["Macacão + 1 acessório","R$ 115,00 ou 19.000 CLP"],["Macacão + 2 acessórios","R$ 199 ou CLP 34.999"],["Macacão + 2 acessórios + bota essencial","R$ 299 ou CLP 52.999"]].map(([desc, price]) => (
+            {[["Macacão + 1 acessório","a partir de R$ 115,00 ou 19.000 CLP"],["Macacão + 2 acessórios","a partir de R$ 199 ou CLP 34.999"],["Macacão + 2 acessórios + bota essencial","a partir de R$ 299 ou CLP 52.999"]].map(([desc, price]) => (
               <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
                 <span style={{ color:"#444" }}>{desc}</span>
                 <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
@@ -315,7 +314,7 @@ export default async function Home() {
               </div>
               <span style={{ background:"rgba(201,168,76,0.3)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐⭐</span>
             </div>
-            {[["Macacão","R$ 299 ou CLP 50.000"],["Macacão + 1 acessório","R$ 350 ou CLP 60.000"],["Macacão + 2 acessórios","R$ 400 ou CLP 69.000"],["Macacão + 2 acessórios + bota essencial","R$ 450 ou CLP 77.000"],["Macacão + 2 acessórios + bota premium","R$ 500 ou CLP 86.000"]].map(([desc, price]) => (
+            {[["Macacão","a partir de R$ 299 ou CLP 50.000"],["Macacão + 1 acessório","a partir de R$ 350 ou CLP 60.000"],["Macacão + 2 acessórios","a partir de R$ 400 ou CLP 69.000"],["Macacão + 2 acessórios + bota essencial","a partir de R$ 450 ou CLP 77.000"],["Macacão + 2 acessórios + bota premium","a partir de R$ 500 ou CLP 86.000"]].map(([desc, price]) => (
               <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
                 <span style={{ color:"#444" }}>{desc}</span>
                 <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
@@ -332,7 +331,7 @@ export default async function Home() {
               </div>
               <span style={{ background:"rgba(201,168,76,0.15)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>⭐⭐⭐</span>
             </div>
-            {[["Macacão","R$ 399 ou CLP 68.000"],["Macacão + 1 acessório + bota essencial","R$ 450 ou CLP 77.000"],["Macacão + 2 acessórios + bota essencial","R$ 500 ou CLP 86.000"],["Macacão + 2 acessórios + bota premium","R$ 550 ou CLP 95.900"]].map(([desc, price]) => (
+            {[["Macacão","a partir de R$ 399 ou CLP 68.000"],["Macacão + 1 acessório + bota essencial","a partir de R$ 450 ou CLP 77.000"],["Macacão + 2 acessórios + bota essencial","a partir de R$ 500 ou CLP 86.000"],["Macacão + 2 acessórios + bota premium","a partir de R$ 550 ou CLP 95.900"]].map(([desc, price]) => (
               <div key={desc} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
                 <span style={{ color:"#444" }}>{desc}</span>
                 <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>{price}</span>
