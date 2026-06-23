@@ -111,8 +111,8 @@ export function Catalog({ data = initialCatalogData }: Props) {
       </section>
 
       <section className="prices-section">
-        <p className="eyebrow">Tabela de Valores</p>
-        <h2>Nossos <em>Kits</em></h2>
+        <p className="eyebrow" style={{ textAlign: "center" }}>Tabela de Valores</p>
+        <h2 style={{ textAlign: "center" }}>Nossos <em>Kits</em></h2>
         {[
           ["Kit Essencial", ["Macacão + 1 acessório — R$ 115,00 ou 19.000 CLP", "Macacão + 2 acessórios — R$ 199 ou CLP 34.999", "Macacão + 2 acessórios + bota essencial — R$ 299 ou CLP 52.999"]],
           ["Kit Premium", ["Macacão — R$ 299 ou CLP 50.000", "Macacão + 2 acessórios — R$ 400 ou CLP 69.000", "Macacão + 2 acessórios + bota premium — R$ 500 ou CLP 86.000"]],

@@ -285,8 +285,8 @@ export default async function Home() {
 
         {/* ── PREÇOS ── */}
         <section className="prices-section">
-          <p className="eyebrow">Tabela de Valores</p>
-          <h2 style={{ color:"var(--azul-escuro)" }}>Nossos <em>Kits</em></h2>
+          <p className="eyebrow" style={{ textAlign: "center" }}>Tabela de Valores</p>
+          <h2 style={{ color:"var(--azul-escuro)", textAlign: "center" }}>Nossos <em>Kits</em></h2>
           <div className="divider" />
 
           {/* Kit Essencial */}
