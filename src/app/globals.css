@@ -195,12 +195,13 @@ select {
 
 .info-banner-text {
   margin: 0;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.1px;
   white-space: normal;
   color: var(--vermelho-escuro);
   text-transform: none;
+  line-height: 1.4;
 }
 
 .eyebrow {
