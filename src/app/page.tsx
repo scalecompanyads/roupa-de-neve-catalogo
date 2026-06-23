@@ -340,6 +340,21 @@ export default async function Home() {
             ))}
           </div>
 
+          {/* Super Exclusiva */}
+          <div className="kit-card" style={{ marginTop:16, borderLeft:"4px solid var(--dourado)", background:"#fffdf5" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:12 }}>
+              <div>
+                <h3 style={{ margin:0, fontFamily:"Playfair Display,serif", color:"var(--azul-escuro)", fontSize:22 }}>Super Exclusiva</h3>
+                <small style={{ color:"#888", letterSpacing:1, textTransform:"uppercase", fontSize:11 }}>Super Exclusive</small>
+              </div>
+              <span style={{ background:"rgba(201,168,76,0.25)", color:"var(--dourado)", borderRadius:8, padding:"6px 12px", fontSize:18 }}>💎</span>
+            </div>
+            <div style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:"1px solid rgba(0,0,0,0.06)", fontSize:13 }}>
+              <span style={{ color:"#444" }}>Peças e valores</span>
+              <span style={{ color:"var(--azul-escuro)", fontWeight:700 }}>A consultar</span>
+            </div>
+          </div>
+
           {/* Kit Sunset */}
           <div className="kit-card" style={{ marginTop:16, background:"#e8f0fc", borderLeft:"4px solid var(--azul)" }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:12 }}>

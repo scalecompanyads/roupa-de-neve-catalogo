@@ -117,6 +117,7 @@ export function Catalog({ data = initialCatalogData }: Props) {
           ["Kit Essencial", ["Macacão + 1 acessório — R$ 115,00 ou 19.000 CLP", "Macacão + 2 acessórios — R$ 199 ou CLP 34.999", "Macacão + 2 acessórios + bota essencial — R$ 299 ou CLP 52.999"]],
           ["Kit Premium", ["Macacão — R$ 299 ou CLP 50.000", "Macacão + 2 acessórios — R$ 400 ou CLP 69.000", "Macacão + 2 acessórios + bota premium — R$ 500 ou CLP 86.000"]],
           ["Kit Exclusivo", ["Macacão — R$ 399 ou CLP 68.000", "Macacão + 2 acessórios + bota premium — R$ 550 ou CLP 95.900"]],
+          ["Super Exclusiva", ["Peças e valores — A consultar"]],
           ["Itens Avulsos", ["Casacos e capas — a partir de R$ 199", "Botas — a partir de R$ 80", "Macacões térmicos — a partir de R$ 80"]]
         ].map(([title, lines]) => (
           <div className="kit-card" key={title as string}>
